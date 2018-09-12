@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.githang:status-bar-compat-0.5">
+    <CLASSES>
+      <root url="file://$APPLICATION_HOME_DIR$/gradle/gradle-4.4/caches/transforms-1/files-1.1/status-bar-compat-0.5.aar/df9680fcadf5794ebe88cec5854f1ff9/res" />
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.4/caches/transforms-1/files-1.1/status-bar-compat-0.5.aar/df9680fcadf5794ebe88cec5854f1ff9/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$APPLICATION_HOME_DIR$/gradle/gradle-4.4/caches/modules-2/files-2.1/com.githang/status-bar-compat/0.5/3bfb30bc68406671e799ca64dce7ef7c15b5ba5a/status-bar-compat-0.5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

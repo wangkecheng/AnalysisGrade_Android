@@ -1,23 +1,15 @@
 package warron.phpprojectandroid.VC;
 
-import android.content.Intent;
-import android.content.SharedPreferences;
+import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import org.xutils.DbManager;
-import org.xutils.ex.DbException;
-import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +19,9 @@ import eu.long1.spacetablayout.SpaceTabLayout;
 
 import eu.long1.spacetablayout.TabOnclickLisener;
 import warron.phpprojectandroid.Base.BaseActivity;
-import warron.phpprojectandroid.Base.CacheTool;
-import warron.phpprojectandroid.Base.UserInfoModel;
 import warron.phpprojectandroid.R;
 import warron.phpprojectandroid.Tools.ToolbarHelper;
 import warron.phpprojectandroid.VC.FragHome.FragHome;
-import warron.phpprojectandroid.VC.FragMySelf.FragMySelf;
-import warron.phpprojectandroid.VC.GuideModule.GuideActivity;
 
 public class MainActivity extends BaseActivity {
     SpaceTabLayout tabLayout;
@@ -48,22 +36,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.MOUNT_FORMAT_FILESYSTEMS,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,Manifest.permission.DELETE_CACHE_FILES};//,Manifest.permission.READ_EXTERNAL_STORAGE,
 
-        SharedPreferences sharedPreferences = this.getSharedPreferences("share", MODE_PRIVATE);
-//        boolean isFirstRun = sharedPreferences.getBoolean("isFirstRun", true);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();//此处表示该应用程序专用
-//        if (isFirstRun){
-//            editor.putBoolean("isFirstRun", false);//如果 "isFirstRun"对应的value没有值则默认为true，
-//            editor.commit();//将isFirstRun写入editor中保存
-//            startActivity(new Intent(MainActivity.this, GuideActivity.class));
-//        }
-//      UserInfoModel model =  CacheTool.getLoginInfoModel();
-//        if (model!=null && model.isMember != 1){
-//            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-            //如果不为0 表示有登录的用户，注意这里最多只会有一个用户的
-            // isMember是1 退出的时候将当前用户的isMember置为0
-            //isRecentLogin退出登录的时候再设置为1
-//        }
+        ActivityCompat.requestPermissions(this, permissions, 321);
 
         fragmentList = new ArrayList<>();
         fragmentList.add(new FragHome());
@@ -95,6 +70,10 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
+
+    }
 
     public void setToolBar(String title,Boolean isShowRightBtn){//切换页卡的时候，改变标题
         toolbarHelper.setTitle(title);
@@ -109,14 +88,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
               ViewPager viewPager =  (ViewPager) findViewById(R.id.viewPager);
-              FragMySelf fragMySelf = (FragMySelf) fragmentList.get(viewPager.getCurrentItem());
-              if (toolbarHelper.getMenuTitle().equals("编辑")){//原来的状态是未编辑，现在将状态改为 正在编辑
-                    toolbarHelper.setMenuTitle("完成",null);
-                  fragMySelf.editAction(true);
-                }else{
-                    toolbarHelper.setMenuTitle("编辑",null);
-                 fragMySelf.editAction(false);
-                }
+
             }
         });
     }

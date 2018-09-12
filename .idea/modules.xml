@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/AnalysisGrade_Android.iml" filepath="$PROJECT_DIR$/AnalysisGrade_Android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GuideActivity/GuideActivity.iml" filepath="$PROJECT_DIR$/GuideActivity/GuideActivity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PhotoPicker/PhotoPicker.iml" filepath="$PROJECT_DIR$/PhotoPicker/PhotoPicker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/pullrecyclerview/pullrecyclerview.iml" filepath="$PROJECT_DIR$/pullrecyclerview/pullrecyclerview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/spacetablayout/spacetablayout.iml" filepath="$PROJECT_DIR$/spacetablayout/spacetablayout.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sweetsheet/sweetsheet.iml" filepath="$PROJECT_DIR$/sweetsheet/sweetsheet.iml" />
+      <module fileurl="file://$PROJECT_DIR$/xutils/xutils.iml" filepath="$PROJECT_DIR$/xutils/xutils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/zz-excel-creator/zz-excel-creator.iml" filepath="$PROJECT_DIR$/zz-excel-creator/zz-excel-creator.iml" />
+    </modules>
+  </component>
+</project>

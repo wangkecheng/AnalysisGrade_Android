@@ -1,5 +1,6 @@
 package warron.phpprojectandroid.VC.FragHome;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -7,15 +8,12 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,19 +23,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URL;
-import java.util.ArrayList;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import jxl.Cell;
-import jxl.Sheet;
-import jxl.Workbook;
 import warron.phpprojectandroid.Base.BaseFragment;
 import warron.phpprojectandroid.R;
 
@@ -69,7 +54,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
 
         btnHomeExportAll = view.findViewById(R.id.btn_home_ExportAll);
         btnHomeExportAll.setOnClickListener(this);
-        this.parseExcel();
+
         String sdStatus = Environment.getExternalStorageState();
         if (sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
             //创建本地文件夹 写入外置内存卡
@@ -112,52 +97,10 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
     private void parseExcel(){
         String sdStatus = Environment.getExternalStorageState();
         if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-                Toast.makeText(getActivity(), "SD卡不可用 请检查权限", Toast.LENGTH_SHORT).show();
-         return;
+            Toast.makeText(getActivity(), "SD卡不可用 请检查权限", Toast.LENGTH_SHORT).show();
+            return;
         }
-        try {
-            Workbook workbook;
-            FileInputStream inputStream;
-            try {
-//                File file = new File(fileUrl);///external/file/154755 //getResources().getString(R.string.app_name)+"analysis.xls"
-////                File file = new File(Environment.getExternalStorageDirectory(), "analysis.xls");
-////              File file = new File(getActivity().getFilesDir().getPath() + "analysis.xls");
-//
-//                Log.d("warron", "parseExcel: "+file.getAbsolutePath());
-//                FileInputStream fin = new FileInputStream(file);
-//                inputStream = new FileInputStream(fileUrl);
-//                workbook = Workbook.getWorkbook(inputStream);
-                File file=new File(Environment.getExternalStorageDirectory()+File.separator+"analysis.xls");//storage/emulated/0/analysis.xls
-
-        Log.d("warronfileUrl", "warron parseExcel: " +file.getAbsolutePath());
-                workbook = Workbook.getWorkbook(file);
-                workbook.getNumberOfSheets();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new Exception("file not found!");
-            }
-            Sheet sheet = workbook.getSheet(0);
-            Cell cell = null;
-            int columnCount = sheet.getColumns();
-            int rowCount = sheet.getRows();
-            System.out.println("当前工作表的名字:" + sheet.getName());
-            System.out.println("总行数:" + rowCount);
-            System.out.println("总列数:" + columnCount);
-            ArrayList list = new ArrayList<String>();
-            for (int i = 0; i < rowCount; i++) {
-                for (int j = 0; j < columnCount; j++) {
-                    // 注意，这里的两个参数，第一个是表示列的，第二才表示行
-                    cell = sheet.getCell(j, i);
-                    String s = sheet.getCell(columnCount-1, i).getContents();
-                    Log.d("warron", "warron OK: " +s.toString());
-                }
-            }
-            workbook.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-            Log.d("warron", "warron parseExcel: 失败");
-        }
+        GradeFactory.getInstance().initArrModel(fileUrl);
     }
 
     public  void chooseFilePath(){
@@ -234,8 +177,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 splicingPath(uri);
             }
 
-            Log.i("hxl", "路径转化成的file========="+file);
-
             et_url.setText(fileUrl.toString());
         }
     }
@@ -254,7 +195,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         file = new File(img_path);
 //        Log.i("hxl", "file========="+file);
         fileUrl=file.getAbsolutePath();
-        if(!fileUrl.endsWith(".doc")){
+        if(!fileUrl.endsWith(".xls")){
             Toast.makeText(getActivity(), "您选中的文件不是Word文档", Toast.LENGTH_LONG).show();
             fileUrl=null;
             return;
@@ -269,7 +210,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         try {
             Log.i("hxl", "获取文件的路径filePath========="+fileUrl);
             if (fileUrl != null) {
-                if (fileUrl.endsWith(".doc")) {
+                if (fileUrl.endsWith(".xls")) {
                     if ("file".equalsIgnoreCase(uri.getScheme())) {//使用第三方应用打开
                         fileUrl = getPath(getActivity(), uri);
                         Log.i("hxl", "===调用第三方应用打开===");
@@ -305,7 +246,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
      */
     private void splicingPath(Uri uri){
         Log.i("hxl", "获取文件的路径filePath========="+fileUrl);
-        if(fileUrl.endsWith(".doc")){
+        if(fileUrl.endsWith(".xls")){
             Log.i("hxl", "===调用拼接路径方法===");
             String string =uri.toString();
             String a[]=new String[2];
@@ -321,8 +262,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 //获取到file
                 file = new File(Environment.getDataDirectory(), a[1]);
             }
-//            fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
-//            Log.i("hxl", "file========="+file);
         }else{
             Toast.makeText(getActivity(), "您选中的文件不是Word文档", Toast.LENGTH_LONG).show();
         }

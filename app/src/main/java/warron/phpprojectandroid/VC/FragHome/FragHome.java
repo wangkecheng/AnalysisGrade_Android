@@ -23,6 +23,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
+
+import jxl.write.WriteException;
 import warron.phpprojectandroid.Base.BaseFragment;
 import warron.phpprojectandroid.R;
 
@@ -62,45 +64,51 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             if (!directory.exists())
                 directory.mkdirs();//这里用这个好一些
         }
-
+        GradeFactory.getInstance(getContext()).initArrModel(fileUrl);
         return view;
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*选择文件路径*/
             case R.id.bt_url:{
-                this.chooseFilePath();
+                this.chooseFilePath(); /*选择文件路径*/
             }break;
-            /*打开文件*/
             case R.id.bt_open:{
-                this.openFile();
+                this.openFile();   /*打开文件*/
             }break;
 
             case R.id.btn_home_setting: {
-//                Toast.makeText(getContext(), "123", Toast.LENGTH_LONG).show();
+
             }break;
 
             case R.id.btn_home_exportStatistics: {
-
-//                Toast.makeText(getContext(), "123", Toast.LENGTH_LONG).show();
+                try {
+                    GradeFactory.getInstance(getContext()).generateAllStuRank();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                }
             }break;
 
             case R.id.btn_home_ExportAll: {
-
-//                Toast.makeText(getContext(), "123", Toast.LENGTH_LONG).show();
+                try {
+                    GradeFactory.getInstance(getContext()).genearteClassRankTable();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    GradeFactory.getInstance(getContext()).genearteAllStuInClassRankTables();
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }break;
 
         }
     }
     private void parseExcel(){
-        String sdStatus = Environment.getExternalStorageState();
-        if (!sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-            Toast.makeText(getActivity(), "SD卡不可用 请检查权限", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        GradeFactory.getInstance().initArrModel(fileUrl);
+
     }
 
     public  void chooseFilePath(){
@@ -108,7 +116,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, 1);
-
     }
     public  void  openFile(){
         this.parseExcel();
@@ -155,15 +162,11 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 return;
             }
             Uri uri = data.getData();//得到uri，后面就是将uri转化成file的过程。
-
             if(!uri.getPath().equals(fileUrl)){//判断是否第二次选择文件
                 file=null;
             }
-
             //获取到选中文件的路径
             fileUrl = uri.getPath();
-
-
             //判断是否是外部打开
             if(fileUrl.contains("external")){
                 isExternal(uri);
@@ -180,11 +183,8 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             et_url.setText(fileUrl.toString());
         }
     }
-    /**
-     * 拿到文件外部路径，通过外部路径遍历出真实路径
-     * @param uri
-     */
-    private void isExternal(Uri uri){
+
+    private void isExternal(Uri uri){ //拿到文件外部路径，通过外部路径遍历出真实路径
         Log.i("hxl", "获取文件的路径filePath========="+fileUrl);
         Log.i("hxl", "===调用外部遍历出路径方法===");
         String[] proj = { MediaStore.Images.Media.DATA };

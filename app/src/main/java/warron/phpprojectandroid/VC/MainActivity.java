@@ -3,6 +3,7 @@ package warron.phpprojectandroid.VC;
 import android.Manifest;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -70,12 +71,13 @@ public class MainActivity extends BaseActivity {
             }
         });
     }
-    @Override
-    public void onRequestPermissionsResult(int requestCode,  String[] permissions,  int[] grantResults) {
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void setToolBar(String title,Boolean isShowRightBtn){//切换页卡的时候，改变标题
+    public void setToolBar(String title, Boolean isShowRightBtn){//切换页卡的时候，改变标题
         toolbarHelper.setTitle(title);
         toolbarHelper.setIsShowRightBtn(isShowRightBtn);//是否显示右边的按钮
     }

@@ -79,10 +79,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             }break;
 
             case R.id.btn_home_setting: {
-
-            }break;
-
-            case R.id.btn_home_exportStatistics: {
                 try {
                     GradeFactory.getInstance(getContext()).generateAllStuRank();
                 } catch (WriteException e) {
@@ -90,12 +86,15 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 }
             }break;
 
-            case R.id.btn_home_ExportAll: {
+            case R.id.btn_home_exportStatistics: {
                 try {
                     GradeFactory.getInstance(getContext()).genearteClassRankTable();
                 } catch (WriteException e) {
                     e.printStackTrace();
                 }
+            }break;
+
+            case R.id.btn_home_ExportAll: {
                 try {
                     GradeFactory.getInstance(getContext()).genearteAllStuInClassRankTables();
                 } catch (WriteException e) {
@@ -103,6 +102,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }break;
 
         }

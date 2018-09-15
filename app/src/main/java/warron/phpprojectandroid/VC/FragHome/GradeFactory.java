@@ -1,15 +1,8 @@
 package warron.phpprojectandroid.VC.FragHome;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Environment;
-import android.support.v4.app.ActivityCompat;
-import android.util.Log;
 import android.widget.Toast;
 
 import org.xutils.DbManager;
@@ -18,10 +11,12 @@ import org.xutils.ex.DbException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
 
@@ -43,8 +38,9 @@ import warron.phpprojectandroid.VC.FragHome.model.ClassModel;
 import warron.phpprojectandroid.VC.FragHome.model.UserInfoModel;
 import warron.phpprojectandroid.VC.FragHome.model.StudentModel;
 
-import me.zhouzhuo.zzexcelcreator.ZzExcelCreator;
 import me.zhouzhuo.zzexcelcreator.ZzFormatCreator;
+
+
 public class GradeFactory {
     /**
      * Excel保存路径
@@ -52,7 +48,7 @@ public class GradeFactory {
 
     String ExcelPath ;
     ArrayList<StudentModel> arrModel;
-    ArrayList<StudentModel> arrCollectModel;//年级排名
+    ArrayList<ClassModel> arrCollectModel;//年级排名
     ArrayList<ClassModel> arrClassModel;//装的是班级模型
     int allProjectSumScore;
     int sumScoreChn;
@@ -78,10 +74,10 @@ public class GradeFactory {
         DbManager manager  =  CacheTool.getDBManager();
         try {
             List<UserInfoModel> list = manager.selector(UserInfoModel.class)
-                        .where("id", "=", 123)
-                        .findAll();
-                if (list != null && list.size() != 0) {
-                    return list.get(0);
+                    .where("id", "=", 123)
+                    .findAll();
+            if (list != null && list.size() != 0) {
+                return list.get(0);
             }
         } catch (DbException e) {
             e.printStackTrace();
@@ -100,18 +96,18 @@ public class GradeFactory {
     public   static synchronized GradeFactory getInstance(Context context){
 
         if (instance == null){
-           instance = new GradeFactory();
+            instance = new GradeFactory();
             instance.context = context;
             instance.ExcelPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +context.getResources().getString(R.string.app_name)+File.separator+"成绩分析表";
             instance.sumScoreBiology  =
-            instance.sumScoreChimistry=
-            instance.sumScorePhysical =
-            instance.sumScoreGrography=
-            instance.sumScoreHistory  =
-            instance.sumScorePlitical =
-            instance.sumScoreEng      =
-            instance.sumScoreMath     =
-            instance.sumScoreChn      = 100;
+                    instance.sumScoreChimistry=
+                            instance.sumScorePhysical =
+                                    instance.sumScoreGrography=
+                                            instance.sumScoreHistory  =
+                                                    instance.sumScorePlitical =
+                                                            instance.sumScoreEng      =
+                                                                    instance.sumScoreMath     =
+                                                                            instance.sumScoreChn      = 100;
             instance.allProjectSumScore = 900;
             instance.goodRate = (float) 0.8;
             instance.passRate = (float)0.6;
@@ -215,13 +211,19 @@ public class GradeFactory {
                     instance.caculateArrClassModel();
                     instance.calculateClassRank();
                     instance.createExcel();
+                    try {
+                        instance.calculateCollectTable();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Toast.makeText(context, "所有信息已经初始化完毕", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute();
 
     }
 
-    private void createExcel() {
+    private void createExcel() {//把表创建好 把sheet创建好
 
         StudentModel model =  arrModel.get(0);
         new AsyncTask<String, Void, Integer>() {
@@ -230,9 +232,14 @@ public class GradeFactory {
             protected Integer doInBackground(String... params) {
                 try {
                     StudentModel model =  arrModel.get(0);
-                     creator.createExcel(ExcelPath, params[0])
-                            .createSheet(params[1])
-                            .close();
+                    creator.createExcel(ExcelPath, params[0]);
+                    String excelPath = ExcelPath +"/"+ model.examName + "成绩分析表.xls";
+                    for (ClassModel classModel : arrClassModel) {
+                        String  fileName = classModel.className +"班学生排序";
+                        instance.addSheet(excelPath,fileName);
+                        creator.createSheet(fileName);
+                    }
+                    creator.close();
                     return 1;
                 } catch (IOException | WriteException e) {
                     e.printStackTrace();
@@ -244,11 +251,16 @@ public class GradeFactory {
             protected void onPostExecute(Integer aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid == 1) {
-
+                    StudentModel model =  arrModel.get(0);
+                    String excelPath = ExcelPath +"/"+ model.examName + "成绩分析表.xls";
+                    instance.addSheet(excelPath,"分析表");
+                    instance.addSheet(excelPath,"班级之间排名");
+                    instance.addSheet(excelPath,"校学生成绩排名");
                 }
             }
 
-        }.execute(model.examName+"成绩分析表","校学生成绩排名");
+        }.execute(model.examName+"成绩分析表");
+
     }
     /**
      * 新增Sheet
@@ -263,13 +275,12 @@ public class GradeFactory {
             Toast.makeText(context, "Sheet名不能为空！", Toast.LENGTH_SHORT).show();
             return;
         }
-
         new AsyncTask<String, Void, Integer>() {
 
             @Override
             protected Integer doInBackground(String... params) {
                 try {
-                     creator.openExcel(new File(params[0]))  //如果不想覆盖文件，注意是openExcel
+                    creator.openExcel(new File(params[0]))  //如果不想覆盖文件，注意是openExcel
                             .createSheet(params[1])
                             .close();
                     return 1;
@@ -347,50 +358,49 @@ public class GradeFactory {
                 .getCellFormat();
         StudentModel model =  arrModel.get(0);
         new  AsyncTask<Object, Void, Integer>(){
-           @Override
-           protected Integer doInBackground(Object... objects) {
-               ArrayList<String> xlsDataMuArrT = (ArrayList<String>) objects[0];
-               String examName = (String) objects[1];
-               try {
+            @Override
+            protected Integer doInBackground(Object... objects) {
+                ArrayList<String> xlsDataMuArrT = (ArrayList<String>) objects[0];
+                String examName = (String) objects[1];
+                try {
                     creator.openExcel(new File(examName))
-                           .openSheet(0);   //打开第0个sheet
-                   int cols = 20;//列数，根据需求修改
-                   int rows = xlsDataMuArrT.size()/cols;
-                   for (int i = 0; i < rows ; i ++) {
-                       for (int j = 0 ;j < cols; j++) {
-                           String value = xlsDataMuArrT.get(i * cols + j);
-                           creator.setColumnWidth(j, 25)
-                                   .setRowHeight(i, 400)
-                                   .fillContent(j, i, value, format);
-                       }
-                   }
-                   creator.close();
-                   return 1;
-               } catch (IOException e) {
-                   e.printStackTrace(); return 0;
-               } catch (WriteException e) {
-                   e.printStackTrace();return 0;
-               } catch (BiffException e) {
-                   e.printStackTrace();return 0;
-               }
-           }
+                            .openSheet(0);   //打开第0个sheet
+                    int cols = 20;//列数，根据需求修改
+                    int rows = xlsDataMuArrT.size()/cols;
+                    for (int i = 0; i < rows ; i ++) {
+                        for (int j = 0 ;j < cols; j++) {
+                            String value = xlsDataMuArrT.get(i * cols + j);
+                            creator.setColumnWidth(j, 25)
+                                    .setRowHeight(i, 400)
+                                    .fillContent(j, i, value, format);
+                        }
+                    }
+                    creator.close();
+                    return 1;
+                } catch (IOException e) {
+                    e.printStackTrace(); return 0;
+                } catch (WriteException e) {
+                    e.printStackTrace();return 0;
+                } catch (BiffException e) {
+                    e.printStackTrace();return 0;
+                }
+            }
 
             @Override
-           protected void onPostExecute(Integer aVoid) {
-               super.onPostExecute(aVoid);
-               if (aVoid != 1) {
-                   Toast.makeText(context, "进程失败", Toast.LENGTH_SHORT).show();
-               }else{
-                   Toast.makeText(context, "进程成功", Toast.LENGTH_SHORT).show();
-               }
-           }
-       }.execute(xlsDataMuArr,ExcelPath + "/" + model.examName + "成绩分析表.xls");
+            protected void onPostExecute(Integer aVoid) {
+                super.onPostExecute(aVoid);
+                if (aVoid != 1) {
+                    Toast.makeText(context, "导出汇总表失败", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "导出汇总表成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(xlsDataMuArr,ExcelPath + "/" + model.examName + "成绩分析表.xls");
     }
 
     public  void genearteClassRankTable() throws WriteException {
 
         StudentModel modelS = arrModel.get(0);
-        this.addSheet( ExcelPath +"/"+ modelS.examName + "成绩分析表.xls","班级之间排名");
         // 创建存放XLS文件数据的数组
         ArrayList<String>  xlsDataMuArr = new ArrayList<String>();
 
@@ -459,11 +469,11 @@ public class GradeFactory {
                 String examName = String.valueOf(objects[1]);
                 try {
                     creator.openExcel(new File(examName))
-                           .openSheet(1); //打开第1个sheet
+                            .openSheet(1); //班级之间排名
                     for (int i = 0; i < rows; i++) {
                         for (int j = 0; j < cols; j++) {
                             String value = xlsDataMuArrT.get(i * cols + j);
-                             creator.setColumnWidth(j, 25)
+                            creator.setColumnWidth(j, 25)
                                     .setRowHeight(i, 400)
                                     .fillContent(j, i, value, format);
                         }
@@ -484,9 +494,9 @@ public class GradeFactory {
             protected void onPostExecute(Integer aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid != 1) {
-                    Toast.makeText(context, "进程失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出班级间排名失败", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "进程成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出班级间排名成功", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(xlsDataMuArr,ExcelPath +"/"+ model.examName + "成绩分析表.xls");
@@ -589,20 +599,17 @@ public class GradeFactory {
 
     public  void genearteAllStuInClassRankTables() throws WriteException, InterruptedException {//一班级为一张表 表中是该班中学生的排名
 
-        // 创建存放XLS文件数据的数组
-        int cols = 20;//列数，根据需求修改
-        int sheetIndex = 2;
         StudentModel modelS = arrModel.get(0);
-        try {
-            creator.openExcel(new File(ExcelPath +"/"+ modelS.examName + "成绩分析表.xls"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (BiffException e) {
-            e.printStackTrace();
-        }
-        for (ClassModel classModel : arrClassModel) {
-            ArrayList  xlsDataMuArr = new ArrayList();
+        final WritableCellFormat format = ZzFormatCreator
+                .getInstance()
+                .createCellFont(WritableFont.ARIAL)
+                .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
+                .setFontSize(14)
+                .setFontColor(Colour.DARK_GREEN)
+                .getCellFormat();
 
+        for(ClassModel classModel :arrClassModel) {
+            ArrayList<String>  xlsDataMuArr = new ArrayList<String>();// 创建存放XLS文件数据的数组
             // 第一行内容
             xlsDataMuArr.add("考试名称");
             xlsDataMuArr.add("学校名称");
@@ -630,78 +637,353 @@ public class GradeFactory {
                 xlsDataMuArr.add(model.schoolID   );//学校代码
                 xlsDataMuArr.add(model.gradeName  );//年级
                 xlsDataMuArr.add(model.studentName);//姓名
-                xlsDataMuArr.add(model.gradeRank  );////校排
-                xlsDataMuArr.add(model.classRank  );//班排
+                xlsDataMuArr.add(model.gradeRank +""  );////校排
+                xlsDataMuArr.add(model.classRank +""  );//班排
                 xlsDataMuArr.add(model.className  );//班级
-                xlsDataMuArr.add(model.enrollmentNumber );//学籍号
-                xlsDataMuArr.add(model.examinationNumber);////考号
-                xlsDataMuArr.add(model.scoreChiness );//语文
-                xlsDataMuArr.add(model.scoreMath    );//数学
-                xlsDataMuArr.add(model.scoreEnglish );//英语
-                xlsDataMuArr.add(model.scoreMorality);//品德/政治
-                xlsDataMuArr.add(model.scoreHistory );//历史
-                xlsDataMuArr.add(model.scorePhysics );//物理
-                xlsDataMuArr.add(model.scoreChemistry);//化学
-                xlsDataMuArr.add(model.scoreBiology);//生物
-                xlsDataMuArr.add(model.scoreGeography);//地理
-                xlsDataMuArr.add(model.scoreTotal);//总分
+                xlsDataMuArr.add(model.enrollmentNumber  +"");//学籍号
+                xlsDataMuArr.add(model.examinationNumber +"");////考号
+                xlsDataMuArr.add(model.scoreChiness +"" );//语文
+                xlsDataMuArr.add(model.scoreMath  +""   );//数学
+                xlsDataMuArr.add(model.scoreEnglish  +"");//英语
+                xlsDataMuArr.add(model.scoreMorality +"");//品德/政治
+                xlsDataMuArr.add(model.scoreHistory +"" );//历史
+                xlsDataMuArr.add(model.scorePhysics +"" );//物理
+                xlsDataMuArr.add(model.scoreChemistry +"");//化学
+                xlsDataMuArr.add(model.scoreBiology +"");//生物
+                xlsDataMuArr.add(model.scoreGeography +"");//地理
+                xlsDataMuArr.add(model.scoreTotal +"");//总分
             }
 
-            String  fileName = modelS.className +"班_学生排序";
-            int rows = xlsDataMuArr.size()/cols;
-
-
-            final WritableCellFormat format = ZzFormatCreator
-                    .getInstance()
-                    .createCellFont(WritableFont.ARIAL)
-                    .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
-                    .setFontSize(14)
-                    .setFontColor(Colour.DARK_GREEN)
-                    .getCellFormat();
-            Thread.sleep(1000);
-            addSheet(ExcelPath +"/"+ modelS.examName + "成绩分析表.xls",fileName);
-            Thread.sleep(1000);
             new AsyncTask<Object,Void,Integer>(){
-
                 @Override
                 protected Integer doInBackground(Object... objects) {
-                    ArrayList<String> xlsDataMuArrT = (ArrayList<String>) objects[0];
-                    int cols = 22;//列数，根据需求修改
-                    int rows = xlsDataMuArrT.size() / cols;
-                    int sheetIndex = Integer.parseInt((String) objects[1]);
-                    String examName = String.valueOf(objects[1]);
-                    creator.openSheet(sheetIndex); //打开第1个sheet
-                    for (int i = 0; i < rows; i++) {
-                        for (int j = 0; j < cols; j++) {
-                            String value = xlsDataMuArrT.get(i * cols + j);
-                            try {
+                    ClassModel classModel = (ClassModel) objects[0];
+                    ArrayList<String> xlsDataMuArr = (ArrayList<String>) objects[1];
+                    int cols = 20;//列数，根据需求修改
+                    int rows = xlsDataMuArr.size() / cols;
+                    try {
+                        int sheetIndex = Integer.parseInt(classModel.gradeRank) + 3 - 1;
+                        creator.openExcel(new File((String) objects[2]))
+                                .openSheet(sheetIndex); //
+                        for (int i = 0; i < rows; i++) {
+                            for (int j = 0; j < cols; j++) {
+                                String value = (String) xlsDataMuArr.get(i * cols + j);
                                 creator.setColumnWidth(j, 25)
                                         .setRowHeight(i, 400)
                                         .fillContent(j, i, value, format);
-                            } catch (WriteException e) {
-                                e.printStackTrace();
                             }
                         }
+                        creator.close();
+                        return  1;
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return 0;
+                    } catch (BiffException e) {
+                        e.printStackTrace();
+                        return 0;
+                    } catch (RowsExceededException e) {
+                        e.printStackTrace();
+                        return 0;
+                    } catch (WriteException e) {
+                        e.printStackTrace();
+                        return 0;
                     }
-                    return  1;
                 }
                 @Override
                 protected void onPostExecute(Integer aVoid) {
                     super.onPostExecute(aVoid);
                     if (aVoid != 1) {
-                        Toast.makeText(context, "进程失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "导出各班级学生排名失败", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(context, "进程成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "导出各班级学生排名成功", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }.execute(xlsDataMuArr,ExcelPath +"/"+ modelS.examName + "成绩分析表.xls",sheetIndex + "");
-            sheetIndex ++;
-        }
-        try {
-            creator.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+            }.execute(classModel,xlsDataMuArr,ExcelPath +"/"+ modelS.examName + "成绩分析表.xls");
         }
     }
 
+    //汇总统计
+    public void calculateCollectTable() throws Exception {
+
+        arrCollectModel = new ArrayList<ClassModel>();
+        arrCollectModel.addAll(this.arrClassModel);
+
+        float totalScore =  this.allProjectSumScore;
+        float goodRate   =  this.goodRate;
+        float paasRate   =  this.passRate;
+
+        for (ClassModel  classModel : arrCollectModel) {
+            for (StudentModel  stuModel : classModel.arrStuModel) {
+                int stuCount = classModel.arrStuModel.size();
+                if (stuModel.scoreChiness >= totalScore * goodRate) {//计算优生人数
+                    classModel.chnGoodStuNum += 1;
+                    classModel.chnGoodRate = classModel.chnGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreChiness >= totalScore * paasRate) {//计算及格人数
+                    classModel.chnPassStuNum += 1;
+                    classModel.chnPassRate = classModel.chnPassStuNum /stuCount;
+                }
+
+                if (stuModel.scoreMath >= totalScore * goodRate) { //计算优生人数
+                    classModel.mathGoodStuNum += 1;
+                    classModel.mathGoodRate = classModel.mathGoodStuNum /stuCount;
+                }
+                if (stuModel.scoreMath >= totalScore * paasRate) {//计算及格人数
+                    classModel.mathPassStuNum += 1;
+                    classModel.mathPassRate = classModel.mathPassStuNum /stuCount;
+                }
+
+                if (stuModel.scoreEnglish >= totalScore * goodRate) {//计算优生人数
+                    classModel.EngGoodStuNum += 1;
+                    classModel.EngGoodRate = classModel.EngGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreEnglish >= totalScore * paasRate) {//计算及格人数
+                    classModel.EngPassStuNum += 1;
+                    classModel.EngPassRate = classModel.EngPassStuNum /stuCount;
+                }
+
+                if (stuModel.scoreMorality >= totalScore * goodRate) {//计算优生人数
+                    classModel.moralityGoodStuNum += 1;
+                    classModel.moralityGoodRate = classModel.moralityGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreMorality >= totalScore * paasRate) {//计算及格人数
+                    classModel.moralityPassStuNum += 1;
+                    classModel.moralityPassRate = classModel.moralityPassStuNum/stuCount;
+                }
+
+                if (stuModel.scoreHistory >= totalScore * goodRate) {//计算优生人数
+                    classModel.historyGoodStuNum += 1;
+                    classModel.historyGoodRate = classModel.historyGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreHistory >= totalScore * paasRate) {//计算及格人数
+                    classModel.historyPassStuNum += 1;
+                    classModel.historyPassRate = classModel.historyPassStuNum/stuCount;
+                }
+
+                if (stuModel.scoreGeography >= totalScore * goodRate) {//计算优生人数
+                    classModel.geoGoodStuNum += 1;
+                    classModel.geoGoodRate = classModel.geoGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreGeography >= totalScore * paasRate) {//计算及格人数
+                    classModel.geoPassStuNum += 1;
+                    classModel.geoPassRate = classModel.geoPassStuNum/stuCount;
+                }
+
+                if (stuModel.scorePhysics >= totalScore * goodRate) {//计算优生人数
+                    classModel.phyGoodStuNum += 1;
+                    classModel.phyGoodRate = classModel.phyGoodStuNum/stuCount;
+                }
+                if (stuModel.scorePhysics >= totalScore * paasRate) {//计算及格人数
+                    classModel.phyPassStuNum += 1;
+                    classModel.phyPassRate = classModel.phyPassStuNum/stuCount;
+                }
+
+                if (stuModel.scoreChemistry >= totalScore * goodRate) {//计算优生人数
+                    classModel.chemistryGoodStuNum += 1;
+                    classModel.chemistryGoodRate = classModel.chemistryGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreChemistry >= totalScore * paasRate) {//计算及格人数
+                    classModel.chemistryPassStuNum += 1;
+                    classModel.chemistryPassRate = classModel.chemistryPassStuNum/stuCount;
+                }
+
+                if (stuModel.scoreBiology >= totalScore * goodRate) {//计算优生人数
+                    classModel.bioGoodStuNum += 1;
+                    classModel.bioGoodRate = classModel.bioGoodStuNum/stuCount;
+                }
+                if (stuModel.scoreBiology >= totalScore * paasRate) {//计算及格人数
+                    classModel.bioPassStuNum += 1;
+                    classModel.bioPassRate = classModel.bioPassStuNum/stuCount;
+                }
+
+                //计算语文 总成绩
+                classModel.chnTotalScore += stuModel.scoreChiness;
+                classModel.chnAveageScore =  classModel.chnTotalScore/stuCount;
+
+                //计算数学  总成绩
+                classModel.mathTotalScore += stuModel.scoreMath;
+                classModel.mathAveageScore =  classModel.mathTotalScore/stuCount;
+
+                //计算英语  总成绩
+                classModel.EngTotalScore += stuModel.scoreEnglish;
+                classModel.EngAveageScore =  classModel.EngTotalScore/stuCount;
+
+                //计算政治  总成绩
+                classModel.moralityTotalScore += stuModel.scoreMorality;
+                classModel.moralityAveageScore =  classModel.moralityTotalScore/stuCount;
+
+                //计算历史  总成绩
+                classModel.historyTotalScore += stuModel.scoreHistory;
+                classModel.historyAveageScore =  classModel.historyTotalScore/stuCount;
+
+                //计算地理  总成绩
+                classModel.geoTotalScore += stuModel.scoreGeography;
+                classModel.geoAveageScore =  classModel.geoTotalScore/stuCount;
+
+                //计算物理  总成绩
+                classModel.phyTotalScore += stuModel.scorePhysics;
+                classModel.phyAveageScore =  classModel.phyTotalScore/stuCount;
+
+                //计算化学  总成绩
+                classModel.chemistryTotalScore += stuModel.scoreChemistry;
+                classModel.chemistryAveageScore =  classModel.chemistryTotalScore/stuCount;
+
+                //计算生物  总成绩
+                classModel.bioTotalScore += stuModel.scoreBiology;
+                classModel.bioAveageScore = classModel.bioTotalScore/stuCount;
+            }
+        }
+        String[] values = new String[]{"chn","Eng","math","morality","history","geo","phy","chemistry","bio"};
+        ArrayList<String> arrTemp = new ArrayList<String>();
+        arrTemp.addAll(Arrays.asList(values));
+
+        for (String prefixStr : arrTemp) {
+
+            final String keyName =  prefixStr +"AveageScore";
+            Comparator<ClassModel> comparator = new Comparator<ClassModel>() {//根据平均成绩排
+                public int compare(ClassModel o1, ClassModel o2) {
+
+                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    if (result == 0) {
+                        return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
+                    } else {
+                        return (int)result;
+                    }
+                }
+            };
+            Collections.sort(arrCollectModel, comparator);
+
+            int index = arrCollectModel.size();
+            for (ClassModel  classModel : arrCollectModel) {
+                String propertyStr = prefixStr + "AveageValue";
+                String  indexStr = index + "";
+                setProperty(classModel,propertyStr,indexStr);
+                index --;
+            }
+        }
+        for (String prefixStr : arrTemp) {
+            int  index = arrCollectModel.size();
+            final String keyName =  prefixStr +"GoodRate";
+            Comparator<ClassModel> comparator = new Comparator<ClassModel>() {////根据优生率
+                public int compare(ClassModel o1, ClassModel o2) {
+
+                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    if (result == 0) {
+                        return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
+                    } else {
+                        return (int)result;
+                    }
+                }
+            };
+            Collections.sort(arrCollectModel, comparator);
+            for (ClassModel  classModel : arrCollectModel) {
+                String propertyStr = prefixStr + "GoodValue";
+                String indexStr = index  + "";
+                setProperty(classModel,propertyStr,indexStr);
+                index --;
+            }
+        }
+        for (String prefixStr : arrTemp) {
+            int index = arrCollectModel.size();
+            final String keyName =  prefixStr +"PassRate";//根据及格率
+            Comparator<ClassModel> comparator = new Comparator<ClassModel>() {////根据优生率
+                public int compare(ClassModel o1, ClassModel o2) {
+
+                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    if (result == 0) {
+                        return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
+                    } else {
+                        return (int)result;
+                    }
+                }
+            };
+            Collections.sort(arrCollectModel, comparator);
+
+            for (ClassModel  classModel : arrCollectModel) {
+                String propertyStr = prefixStr + "PassValue";
+                String indexStr = index  + "";
+                setProperty(classModel,propertyStr,indexStr);
+                index --;
+            }
+        }
+        //计算各科总分值  TotalValue  chnAveageValue chnGoodValue chnPassValue
+        for (ClassModel  classModel : arrCollectModel) {
+            for (String prefixStr : arrTemp) {
+                String aveageValue = (String) getKeyValue(prefixStr +"AveageValue",classModel); //平均分单值
+
+                String goodValue = (String) getKeyValue(prefixStr +"GoodValue",classModel);   //优生率单值
+
+                String passValue = (String) getKeyValue(prefixStr +"PassValue",classModel);//及格率单值
+
+                int totalValue = Integer.parseInt(aveageValue) + Integer.parseInt(goodValue) + Integer.parseInt(passValue);
+                String totalValuePro = prefixStr + "TotalValue";
+                setProperty(classModel,totalValuePro,totalValue);//设置各科各自的总单值
+                classModel.classTotalValue += totalValue;//计算所有有学科总单值
+            }
+        }
+
+        Comparator<ClassModel> comparator = new Comparator<ClassModel>() {//根据总评分 确定 名次
+            public int compare(ClassModel o1, ClassModel o2) {
+
+                float result = (float)getKeyValue("classTotalValue",o1) - (float)getKeyValue("classTotalValue",o2) ; //
+                if (result == 0) {
+                    return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
+                } else {
+                    return (int)result;
+                }
+            }
+        };
+        Collections.sort(arrCollectModel, comparator);
+        int classTotalRank = 1;
+        for (ClassModel  model : arrCollectModel) {
+            model.classTotalRank =  classTotalRank;
+            classTotalRank ++;
+        }
+        for (String prefixStr : arrTemp) {//给每一学科 分值(单值之和)  定个班级之间的名次 分值越高， 名次值越高
+
+            final String keyName =  prefixStr +"TotalValue";
+            Comparator<ClassModel> comparator2 = new Comparator<ClassModel>() {//根据总评分 确定 名次
+                public int compare(ClassModel o1, ClassModel o2) {
+
+                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    if (result == 0) {
+                        return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
+                    } else {
+                        return (int)result;
+                    }
+                }
+            };
+            Collections.sort(arrCollectModel, comparator2);
+
+            for (ClassModel  classModel : arrCollectModel) {
+                int index = arrCollectModel.size();
+                String  proRankValue = prefixStr + "RankValue";
+                setProperty(classModel,proRankValue,index);
+                index --;
+            }
+        }
+    }
+
+    static Object getKeyValue(String keyName, Object o){
+        try {
+            String firstLetter = keyName.substring(0, 1).toUpperCase();
+            String getter = "get" + firstLetter + keyName.substring(1);
+            Method method = o.getClass().getMethod(getter, new Class[] {});
+            Object value = method.invoke(o, new Object[] {});
+            return value;
+        } catch (Exception e) {
+            System.out.println("属性不存在");
+            return null;
+        }
+    }
+    //定义一个可以将propertyName的属性的值设置为value的方法。
+    static void setProperty(Object obj,String propertyName,Object value) throws Exception{
+
+        Class cls =obj.getClass();//获取obj字节码
+        Field field =cls.getDeclaredField(propertyName);//得到propertyName字段
+
+        field.setAccessible(true);//因为对象的属性是私有的，先把权限打开。（暴力反射）
+        field.set(obj, value);//将传入的obj对象中为propertyName的属性的值设置为value.
+
+    }
 }

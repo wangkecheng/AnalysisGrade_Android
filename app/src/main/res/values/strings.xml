@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">校园meme</string>
-
+    <string name="app_name">成绩分析</string>
+<!--校园meme-->
     <string name="add_header">添加header</string>
     <string name="remove_header">移除header</string>
     <string name="set_header">设置header</string>

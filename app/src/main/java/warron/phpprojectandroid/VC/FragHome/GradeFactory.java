@@ -69,6 +69,7 @@ public class GradeFactory {
     float difficultyRate;//学困率
     Context context;//操作的上下文
     final  ZzExcelCreator creator =  ZzExcelCreator.getInstance();
+    String keyName;
 
     public static UserInfoModel getCofigModel() {
         DbManager manager  =  CacheTool.getDBManager();
@@ -234,9 +235,9 @@ public class GradeFactory {
                     StudentModel model =  arrModel.get(0);
                     creator.createExcel(ExcelPath, params[0]);
                     String excelPath = ExcelPath +"/"+ model.examName + "成绩分析表.xls";
-                    for (ClassModel classModel : arrClassModel) {
+                    for (int i = arrClassModel.size() - 1;i>=0;i--){
+                        ClassModel classModel = arrClassModel.get(i);
                         String  fileName = classModel.className +"班学生排序";
-                        instance.addSheet(excelPath,fileName);
                         creator.createSheet(fileName);
                     }
                     creator.close();
@@ -600,13 +601,6 @@ public class GradeFactory {
     public  void genearteAllStuInClassRankTables() throws WriteException, InterruptedException {//一班级为一张表 表中是该班中学生的排名
 
         StudentModel modelS = arrModel.get(0);
-        final WritableCellFormat format = ZzFormatCreator
-                .getInstance()
-                .createCellFont(WritableFont.ARIAL)
-                .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
-                .setFontSize(14)
-                .setFontColor(Colour.DARK_GREEN)
-                .getCellFormat();
 
         for(ClassModel classModel :arrClassModel) {
             ArrayList<String>  xlsDataMuArr = new ArrayList<String>();// 创建存放XLS文件数据的数组
@@ -654,7 +648,7 @@ public class GradeFactory {
                 xlsDataMuArr.add(model.scoreTotal +"");//总分
             }
 
-            new AsyncTask<Object,Void,Integer>(){
+         AsyncTask task =   new AsyncTask<Object,Void,Integer>(){
                 @Override
                 protected Integer doInBackground(Object... objects) {
                     ClassModel classModel = (ClassModel) objects[0];
@@ -665,6 +659,13 @@ public class GradeFactory {
                         int sheetIndex = Integer.parseInt(classModel.gradeRank) + 3 - 1;
                         creator.openExcel(new File((String) objects[2]))
                                 .openSheet(sheetIndex); //
+                        WritableCellFormat format = ZzFormatCreator
+                                .getInstance()
+                                .createCellFont(WritableFont.ARIAL)
+                                .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
+                                .setFontSize(14)
+                                .setFontColor(Colour.DARK_GREEN)
+                                .getCellFormat();
                         for (int i = 0; i < rows; i++) {
                             for (int j = 0; j < cols; j++) {
                                 String value = (String) xlsDataMuArr.get(i * cols + j);
@@ -699,6 +700,7 @@ public class GradeFactory {
                     }
                 }
             }.execute(classModel,xlsDataMuArr,ExcelPath +"/"+ modelS.examName + "成绩分析表.xls");
+
         }
     }
 
@@ -715,83 +717,83 @@ public class GradeFactory {
         for (ClassModel  classModel : arrCollectModel) {
             for (StudentModel  stuModel : classModel.arrStuModel) {
                 int stuCount = classModel.arrStuModel.size();
-                if (stuModel.scoreChiness >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreChiness >= totalScore * goodRate) {// 语文 计算优生人数
                     classModel.chnGoodStuNum += 1;
                     classModel.chnGoodRate = classModel.chnGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreChiness >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreChiness >= totalScore * paasRate) {// 语文 计算及格人数
                     classModel.chnPassStuNum += 1;
                     classModel.chnPassRate = classModel.chnPassStuNum /stuCount;
                 }
 
-                if (stuModel.scoreMath >= totalScore * goodRate) { //计算优生人数
+                if (stuModel.scoreMath >= totalScore * goodRate) { // 数学 计算优生人数
                     classModel.mathGoodStuNum += 1;
                     classModel.mathGoodRate = classModel.mathGoodStuNum /stuCount;
                 }
-                if (stuModel.scoreMath >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreMath >= totalScore * paasRate) {// 数学 计算及格人数
                     classModel.mathPassStuNum += 1;
                     classModel.mathPassRate = classModel.mathPassStuNum /stuCount;
                 }
 
-                if (stuModel.scoreEnglish >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreEnglish >= totalScore * goodRate) {// 英语 计算优生人数
                     classModel.EngGoodStuNum += 1;
                     classModel.EngGoodRate = classModel.EngGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreEnglish >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreEnglish >= totalScore * paasRate) {// 英语 计算及格人数
                     classModel.EngPassStuNum += 1;
                     classModel.EngPassRate = classModel.EngPassStuNum /stuCount;
                 }
 
-                if (stuModel.scoreMorality >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreMorality >= totalScore * goodRate) {// 政治 计算优生人数
                     classModel.moralityGoodStuNum += 1;
                     classModel.moralityGoodRate = classModel.moralityGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreMorality >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreMorality >= totalScore * paasRate) {// 政治  计算及格人数
                     classModel.moralityPassStuNum += 1;
                     classModel.moralityPassRate = classModel.moralityPassStuNum/stuCount;
                 }
 
-                if (stuModel.scoreHistory >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreHistory >= totalScore * goodRate) {// 历史 计算优生人数
                     classModel.historyGoodStuNum += 1;
                     classModel.historyGoodRate = classModel.historyGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreHistory >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreHistory >= totalScore * paasRate) {// 历史 计算及格人数
                     classModel.historyPassStuNum += 1;
                     classModel.historyPassRate = classModel.historyPassStuNum/stuCount;
                 }
 
-                if (stuModel.scoreGeography >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreGeography >= totalScore * goodRate) {// 地理 计算优生人数
                     classModel.geoGoodStuNum += 1;
                     classModel.geoGoodRate = classModel.geoGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreGeography >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreGeography >= totalScore * paasRate) {// 地理 计算及格人数
                     classModel.geoPassStuNum += 1;
                     classModel.geoPassRate = classModel.geoPassStuNum/stuCount;
                 }
 
-                if (stuModel.scorePhysics >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scorePhysics >= totalScore * goodRate) {// 物理 计算优生人数
                     classModel.phyGoodStuNum += 1;
                     classModel.phyGoodRate = classModel.phyGoodStuNum/stuCount;
                 }
-                if (stuModel.scorePhysics >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scorePhysics >= totalScore * paasRate) {// 物理 计算及格人数
                     classModel.phyPassStuNum += 1;
                     classModel.phyPassRate = classModel.phyPassStuNum/stuCount;
                 }
 
-                if (stuModel.scoreChemistry >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreChemistry >= totalScore * goodRate) {// 化学 计算优生人数
                     classModel.chemistryGoodStuNum += 1;
                     classModel.chemistryGoodRate = classModel.chemistryGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreChemistry >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreChemistry >= totalScore * paasRate) {// 化学 计算及格人数
                     classModel.chemistryPassStuNum += 1;
                     classModel.chemistryPassRate = classModel.chemistryPassStuNum/stuCount;
                 }
 
-                if (stuModel.scoreBiology >= totalScore * goodRate) {//计算优生人数
+                if (stuModel.scoreBiology >= totalScore * goodRate) {// 生物 计算优生人数
                     classModel.bioGoodStuNum += 1;
                     classModel.bioGoodRate = classModel.bioGoodStuNum/stuCount;
                 }
-                if (stuModel.scoreBiology >= totalScore * paasRate) {//计算及格人数
+                if (stuModel.scoreBiology >= totalScore * paasRate) {// 生物 计算及格人数
                     classModel.bioPassStuNum += 1;
                     classModel.bioPassRate = classModel.bioPassStuNum/stuCount;
                 }
@@ -833,17 +835,18 @@ public class GradeFactory {
                 classModel.bioAveageScore = classModel.bioTotalScore/stuCount;
             }
         }
+
         String[] values = new String[]{"chn","Eng","math","morality","history","geo","phy","chemistry","bio"};
         ArrayList<String> arrTemp = new ArrayList<String>();
         arrTemp.addAll(Arrays.asList(values));
 
         for (String prefixStr : arrTemp) {
 
-            final String keyName =  prefixStr +"AveageScore";
+            keyName =  prefixStr +"AveageScore";
             Comparator<ClassModel> comparator = new Comparator<ClassModel>() {//根据平均成绩排
                 public int compare(ClassModel o1, ClassModel o2) {
 
-                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    float result =   (float)getKeyValue(keyName,o2) - (float)getKeyValue(keyName,o1) ; //
                     if (result == 0) {
                         return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
                     } else {
@@ -856,14 +859,13 @@ public class GradeFactory {
             int index = arrCollectModel.size();
             for (ClassModel  classModel : arrCollectModel) {
                 String propertyStr = prefixStr + "AveageValue";
-                String  indexStr = index + "";
-                setProperty(classModel,propertyStr,indexStr);
+                setProperty(classModel,propertyStr,index);
                 index --;
             }
         }
         for (String prefixStr : arrTemp) {
             int  index = arrCollectModel.size();
-            final String keyName =  prefixStr +"GoodRate";
+           keyName =  prefixStr +"GoodRate";
             Comparator<ClassModel> comparator = new Comparator<ClassModel>() {////根据优生率
                 public int compare(ClassModel o1, ClassModel o2) {
 
@@ -878,14 +880,13 @@ public class GradeFactory {
             Collections.sort(arrCollectModel, comparator);
             for (ClassModel  classModel : arrCollectModel) {
                 String propertyStr = prefixStr + "GoodValue";
-                String indexStr = index  + "";
-                setProperty(classModel,propertyStr,indexStr);
+                setProperty(classModel,propertyStr,index);
                 index --;
             }
         }
         for (String prefixStr : arrTemp) {
             int index = arrCollectModel.size();
-            final String keyName =  prefixStr +"PassRate";//根据及格率
+            keyName =  prefixStr +"PassRate";//根据及格率
             Comparator<ClassModel> comparator = new Comparator<ClassModel>() {////根据优生率
                 public int compare(ClassModel o1, ClassModel o2) {
 
@@ -901,21 +902,17 @@ public class GradeFactory {
 
             for (ClassModel  classModel : arrCollectModel) {
                 String propertyStr = prefixStr + "PassValue";
-                String indexStr = index  + "";
-                setProperty(classModel,propertyStr,indexStr);
+                setProperty(classModel,propertyStr,index);
                 index --;
             }
         }
         //计算各科总分值  TotalValue  chnAveageValue chnGoodValue chnPassValue
         for (ClassModel  classModel : arrCollectModel) {
             for (String prefixStr : arrTemp) {
-                String aveageValue = (String) getKeyValue(prefixStr +"AveageValue",classModel); //平均分单值
-
-                String goodValue = (String) getKeyValue(prefixStr +"GoodValue",classModel);   //优生率单值
-
-                String passValue = (String) getKeyValue(prefixStr +"PassValue",classModel);//及格率单值
-
-                int totalValue = Integer.parseInt(aveageValue) + Integer.parseInt(goodValue) + Integer.parseInt(passValue);
+                int aveageValue = (int) getKeyValue(prefixStr +"AveageValue",classModel); //平均分单值
+                int goodValue   = (int) getKeyValue(prefixStr +"GoodValue",classModel);   //优生率单值
+                int passValue   = (int) getKeyValue(prefixStr +"PassValue",classModel);   //及格率单值
+                int totalValue = aveageValue + goodValue + passValue;
                 String totalValuePro = prefixStr + "TotalValue";
                 setProperty(classModel,totalValuePro,totalValue);//设置各科各自的总单值
                 classModel.classTotalValue += totalValue;//计算所有有学科总单值
@@ -925,7 +922,7 @@ public class GradeFactory {
         Comparator<ClassModel> comparator = new Comparator<ClassModel>() {//根据总评分 确定 名次
             public int compare(ClassModel o1, ClassModel o2) {
 
-                float result = (float)getKeyValue("classTotalValue",o1) - (float)getKeyValue("classTotalValue",o2) ; //
+                int result = (int)getKeyValue("classTotalValue",o1) - (int)getKeyValue("classTotalValue",o2) ; //
                 if (result == 0) {
                     return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
                 } else {
@@ -941,11 +938,11 @@ public class GradeFactory {
         }
         for (String prefixStr : arrTemp) {//给每一学科 分值(单值之和)  定个班级之间的名次 分值越高， 名次值越高
 
-            final String keyName =  prefixStr +"TotalValue";
+             keyName =  prefixStr +"TotalValue";
             Comparator<ClassModel> comparator2 = new Comparator<ClassModel>() {//根据总评分 确定 名次
                 public int compare(ClassModel o1, ClassModel o2) {
 
-                    float result = (float)getKeyValue(keyName,o1) - (float)getKeyValue(keyName,o2) ; //
+                    int result = (int)getKeyValue(keyName,o1) - (int)getKeyValue(keyName,o2) ; //
                     if (result == 0) {
                         return Integer.parseInt(o1.gradeRank) - Integer.parseInt(o2.gradeRank);
                     } else {
@@ -980,7 +977,7 @@ public class GradeFactory {
     static void setProperty(Object obj,String propertyName,Object value) throws Exception{
 
         Class cls =obj.getClass();//获取obj字节码
-        Field field =cls.getDeclaredField(propertyName);//得到propertyName字段
+         Field field =cls.getDeclaredField(propertyName);//得到propertyName字段
 
         field.setAccessible(true);//因为对象的属性是私有的，先把权限打开。（暴力反射）
         field.set(obj, value);//将传入的obj对象中为propertyName的属性的值设置为value.

@@ -36,6 +36,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
     Button btnHomeSetting;
     Button btnHomeExportStatistics;
     Button btnHomeExportAll;
+    Button btnShare;
     String fileUrl;
     File file ;
     String fileName;
@@ -57,6 +58,8 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         btnHomeExportAll = view.findViewById(R.id.btn_home_ExportAll);
         btnHomeExportAll.setOnClickListener(this);
 
+        btnShare = view.findViewById(R.id.btn_home_ShareAll);
+        btnShare.setOnClickListener(this);
         String sdStatus = Environment.getExternalStorageState();
         if (sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
             //创建本地文件夹 写入外置内存卡
@@ -75,7 +78,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 this.chooseFilePath(); /*选择文件路径*/
             }break;
             case R.id.bt_open:{
-                this.openFile();   /*打开文件*/
             }break;
 
             case R.id.btn_home_setting: {
@@ -104,11 +106,11 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 }
 
             }break;
+            case R.id.btn_home_ShareAll: {
+                shareFile();//分享文件
+            }break;
 
         }
-    }
-    private void parseExcel(){
-
     }
 
     public  void chooseFilePath(){
@@ -117,40 +119,39 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(intent, 1);
     }
-    public  void  openFile(){
-        this.parseExcel();
-//        if (fileUrl!= null) {
-//            try {
-//                File file = new File(fileUrl);
-//                Intent intent2 = new Intent("android.intent.action.VIEW");
-//                intent2.addCategory("android.intent.category.DEFAULT");
-//                intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//                Uri uri = Uri.fromFile(file);
-//                //application/msword
-//                //application/vnd.ms-excel
-//                if (fileUrl.contains(".docx")){
-//                    intent2.setDataAndType(uri, "application/msword");
-//                }else if (fileUrl.contains(".xlsx")){
-//                    intent2.setDataAndType(uri, "application/vnd.ms-excel");
-//                }else {
-//                    intent2.setDataAndType(uri, "text/plain");
-//                }
-//                startActivity(intent2);
-//            } catch (Exception e) {
-//                //没有安装第三方的软件会提示
-//                Toast toast = Toast.makeText(getActivity(), "没有找到打开该文件的应用程序", Toast.LENGTH_SHORT);
-//                toast.show();
-//            }
-//
-//            // Intent intent2 = new Intent();
-//            // intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            //  intent2.setAction(Intent.ACTION_VIEW);
-//            //  intent2.setDataAndType((Uri) etUrl.getText(), "text/plain");
-//            //   startActivity(intent2);
-//        } else {
-//            Toast.makeText(getActivity(), "请选择或输入文件路径", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
+    public  void  shareFile(){
+        if (fileUrl!= null) {
+            try {
+                File file = new File(fileUrl);
+                Intent intent2 = new Intent("android.intent.action.VIEW");
+                intent2.addCategory("android.intent.category.DEFAULT");
+                intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Uri uri = Uri.fromFile(file);
+                //application/msword
+                //application/vnd.ms-excel
+                if (fileUrl.contains(".docx")){
+                    intent2.setDataAndType(uri, "application/msword");
+                }else if (fileUrl.contains(".xlsx")){
+                    intent2.setDataAndType(uri, "application/vnd.ms-excel");
+                }else {
+                    intent2.setDataAndType(uri, "text/plain");
+                }
+                startActivity(intent2);
+            } catch (Exception e) {
+                //没有安装第三方的软件会提示
+                Toast toast = Toast.makeText(getActivity(), "没有找到打开该文件的应用程序", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+            // Intent intent2 = new Intent();
+            // intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            //  intent2.setAction(Intent.ACTION_VIEW);
+            //  intent2.setDataAndType((Uri) etUrl.getText(), "text/plain");
+            //   startActivity(intent2);
+        } else {
+            Toast.makeText(getActivity(), "请选择或输入文件路径", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
     }
 

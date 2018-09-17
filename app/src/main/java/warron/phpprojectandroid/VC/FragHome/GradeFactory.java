@@ -101,7 +101,7 @@ public class GradeFactory {
             instance.context = context;
             instance.ExcelPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +context.getResources().getString(R.string.app_name)+File.separator+"成绩分析表";
             instance.sumScoreBiology  =
-                    instance.sumScoreChimistry=
+            instance.sumScoreChimistry=
                             instance.sumScorePhysical =
                                     instance.sumScoreGrography=
                                             instance.sumScoreHistory  =
@@ -237,7 +237,7 @@ public class GradeFactory {
                     String excelPath = ExcelPath +"/"+ model.examName + "成绩分析表.xls";
                     for (int i = arrClassModel.size() - 1;i>=0;i--){
                         ClassModel classModel = arrClassModel.get(i);
-                        String  fileName = classModel.className +"班学生排序";
+                        String  fileName = classModel.className +"班学生排序表";
                         creator.createSheet(fileName);
                     }
                     creator.close();
@@ -254,9 +254,9 @@ public class GradeFactory {
                 if (aVoid == 1) {
                     StudentModel model =  arrModel.get(0);
                     String excelPath = ExcelPath +"/"+ model.examName + "成绩分析表.xls";
-                    instance.addSheet(excelPath,"分析表");
-                    instance.addSheet(excelPath,"班级之间排名");
-                    instance.addSheet(excelPath,"校学生成绩排名");
+                    instance.addSheet(excelPath,"校学生成绩排名表");
+                    instance.addSheet(excelPath,"班级之间排名表");
+                    instance.addSheet(excelPath,"汇总分析表");
                 }
             }
 
@@ -305,7 +305,7 @@ public class GradeFactory {
     }
 
 
-    public  void generateAllStuRank() throws WriteException {//创建校所有学生成绩排名表
+    public  void generateAllStuRank() {//创建校所有学生成绩排名表
         ArrayList<String>  xlsDataMuArr = new ArrayList<String>(); // 创建存放XLS文件数据的数组
         // 第一行内容
         xlsDataMuArr.add("考试名称");
@@ -350,13 +350,6 @@ public class GradeFactory {
             xlsDataMuArr.add(model.scoreGeography+"");//地理
             xlsDataMuArr.add(model.scoreTotal    +"");//总分
         }
-        final WritableCellFormat format = ZzFormatCreator
-                .getInstance()
-                .createCellFont(WritableFont.ARIAL)
-                .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
-                .setFontSize(14)
-                .setFontColor(Colour.DARK_GREEN)
-                .getCellFormat();
         StudentModel model =  arrModel.get(0);
         new  AsyncTask<Object, Void, Integer>(){
             @Override
@@ -365,9 +358,16 @@ public class GradeFactory {
                 String examName = (String) objects[1];
                 try {
                     creator.openExcel(new File(examName))
-                            .openSheet(0);   //打开第0个sheet
+                            .openSheet(2);   //打开第0个sheet
                     int cols = 20;//列数，根据需求修改
                     int rows = xlsDataMuArrT.size()/cols;
+                    final WritableCellFormat format = ZzFormatCreator
+                            .getInstance()
+                            .createCellFont(WritableFont.ARIAL)
+                            .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
+                            .setFontSize(14)
+                            .setFontColor(Colour.DARK_GREEN)
+                            .getCellFormat();
                     for (int i = 0; i < rows ; i ++) {
                         for (int j = 0 ;j < cols; j++) {
                             String value = xlsDataMuArrT.get(i * cols + j);
@@ -399,7 +399,7 @@ public class GradeFactory {
         }.execute(xlsDataMuArr,ExcelPath + "/" + model.examName + "成绩分析表.xls");
     }
 
-    public  void genearteClassRankTable() throws WriteException {
+    public  void genearteClassRankTable()  {//班级之间排名表
 
         StudentModel modelS = arrModel.get(0);
         // 创建存放XLS文件数据的数组
@@ -452,14 +452,7 @@ public class GradeFactory {
             xlsDataMuArr.add(model.difficultyStuNum+"");//学困人数
             xlsDataMuArr.add(model.difficultyStuNumRate+"");//学困率
         }
-        final WritableCellFormat format = ZzFormatCreator
-                .getInstance()
-                .createCellFont(WritableFont.ARIAL)
-                .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
-                .setFontSize(14)
-                .setFontColor(Colour.DARK_GREEN)
-                .getCellFormat();
-        StudentModel model =  arrModel.get(0);
+
         new AsyncTask<Object,Void,Integer>(){
 
             @Override
@@ -471,6 +464,14 @@ public class GradeFactory {
                 try {
                     creator.openExcel(new File(examName))
                             .openSheet(1); //班级之间排名
+                    final WritableCellFormat format = ZzFormatCreator
+                            .getInstance()
+                            .createCellFont(WritableFont.ARIAL)
+                            .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
+                            .setFontSize(14)
+                            .setFontColor(Colour.DARK_GREEN)
+                            .getCellFormat();
+                    StudentModel model =  arrModel.get(0);
                     for (int i = 0; i < rows; i++) {
                         for (int j = 0; j < cols; j++) {
                             String value = xlsDataMuArrT.get(i * cols + j);
@@ -495,12 +496,12 @@ public class GradeFactory {
             protected void onPostExecute(Integer aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid != 1) {
-                    Toast.makeText(context, "导出班级间排名失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出班级间排名表失败", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "导出班级间排名成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出班级间排名表成功", Toast.LENGTH_SHORT).show();
                 }
             }
-        }.execute(xlsDataMuArr,ExcelPath +"/"+ model.examName + "成绩分析表.xls");
+        }.execute(xlsDataMuArr,ExcelPath +"/"+ modelS.examName + "成绩分析表.xls");
     }
 
     public  void caculateArrClassModel(){//初始化班级信息
@@ -598,7 +599,7 @@ public class GradeFactory {
         }
     }
 
-    public  void genearteAllStuInClassRankTables() throws WriteException, InterruptedException {//一班级为一张表 表中是该班中学生的排名
+    public  void genearteAllStuInClassRankTables() {//一班级为一张表 表中是该班中学生的排名
 
         StudentModel modelS = arrModel.get(0);
 
@@ -694,9 +695,9 @@ public class GradeFactory {
                 protected void onPostExecute(Integer aVoid) {
                     super.onPostExecute(aVoid);
                     if (aVoid != 1) {
-                        Toast.makeText(context, "导出各班级学生排名失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "导出各班级学生排名表失败", Toast.LENGTH_SHORT).show();
                     }else{
-                        Toast.makeText(context, "导出各班级学生排名成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "导出各班级学生排名表成功", Toast.LENGTH_SHORT).show();
                     }
                 }
             }.execute(classModel,xlsDataMuArr,ExcelPath +"/"+ modelS.examName + "成绩分析表.xls");
@@ -704,8 +705,7 @@ public class GradeFactory {
         }
     }
 
-    //汇总统计
-    public void calculateCollectTable() throws Exception {
+    public void calculateCollectTable() throws Exception { //汇总统计
 
         arrCollectModel = new ArrayList<ClassModel>();
         arrCollectModel.addAll(this.arrClassModel);
@@ -961,6 +961,181 @@ public class GradeFactory {
         }
     }
 
+    public void generateCollectTable(){//生成汇总表
+
+        int cols = 40;//列数，根据需求修改
+        ArrayList<String>  xlsDataMuArr = new ArrayList<String>();// 创建存放XLS文件数据的数组
+
+        // 第一行内容
+        xlsDataMuArr.add("班级");
+        xlsDataMuArr.add("指标");
+        xlsDataMuArr.add("语");
+        xlsDataMuArr.add("数");
+        xlsDataMuArr.add("外");
+        xlsDataMuArr.add("政");
+        xlsDataMuArr.add("史");
+        xlsDataMuArr.add("地");
+        xlsDataMuArr.add("物");
+        xlsDataMuArr.add("化");
+        xlsDataMuArr.add("生");
+        xlsDataMuArr.add("语单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("数单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("外单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("政单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("史单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("地单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("物单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("化单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("生单值");xlsDataMuArr.add("分值");xlsDataMuArr.add("名次");
+        xlsDataMuArr.add("总评分");
+        xlsDataMuArr.add("名次");
+
+
+        //列数据
+        for (ClassModel  model : arrCollectModel) {
+            xlsDataMuArr.add(model.className);
+            xlsDataMuArr.add("平均分");
+            String[] values = new String[]{"chn","Eng","math","morality","history","geo","phy","chemistry","bio"};
+            ArrayList<String> arrTemp = new ArrayList<String>();
+            arrTemp.addAll(Arrays.asList(values));
+            for (String  prefixStr : arrTemp) {//列数据第一行 平均模块
+                float value = (float) getKeyValue(prefixStr + "AveageScore",model);
+                xlsDataMuArr.add(value + "");
+            }
+            for (String prefixStr : arrTemp) {//列数据第一行 单值模块
+                xlsDataMuArr.add(getKeyValue(prefixStr+"AveageValue",model)+"");//单值
+                xlsDataMuArr.add(getKeyValue(prefixStr +"TotalValue",model)+"");//学科 平均分 及格率，优生率 单值 总和
+                xlsDataMuArr.add(getKeyValue(prefixStr +"RankValue",model)+"");//学科  名次
+            }
+
+            xlsDataMuArr.add(model.classTotalValue +"");//总评分
+            xlsDataMuArr.add(model.classTotalRank +"");//总名次
+            xlsDataMuArr.add(" ");
+            xlsDataMuArr.add("及格率");
+            for (String  prefixStr : arrTemp) {//列数据第二行
+                xlsDataMuArr.add(getKeyValue(prefixStr +"PassRate",model) + "");//前面几个
+            }
+
+            for (String prefixStr : arrTemp) {//列数据第二行
+                int value = (int) getKeyValue(prefixStr +"PassValue",model);//前面几个
+                if (prefixStr != arrTemp.get(arrTemp.size() - 1)) {
+                    xlsDataMuArr.add(value +"");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                }else{
+                    xlsDataMuArr.add(value + "");//生单值 跳两格 并换行  后面的总评分和总名次
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                }
+            }
+            xlsDataMuArr.add(" ");
+            //优生率
+            xlsDataMuArr.add("优生率");
+            for (String  prefixStr : arrTemp) {//列数据第二行
+                float value = (float) getKeyValue(prefixStr + "GoodRate",model);//前面几个
+                xlsDataMuArr.add(value +"");
+            }
+            for (String  prefixStr : arrTemp) {//列数据第二行
+                int value = (int) getKeyValue(prefixStr +"GoodValue",model);//前面几个
+                if (prefixStr != arrTemp.get(arrTemp.size() - 1)) {
+                    xlsDataMuArr.add(value +"");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                }else{
+                    xlsDataMuArr.add(value +"");//生单值 跳两格 并换行  后面的总评分和总名次   第一个班的数据解析完成 多加个换行
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                    xlsDataMuArr.add(" ");
+                }
+            }
+            for (int i = 0 ;i <cols;i++) {
+                xlsDataMuArr.add(" ");
+            }
+        }
+        ClassModel classModel = arrClassModel.get(0);
+        AsyncTask task =   new AsyncTask<Object,Void,Integer>(){
+            @Override
+            protected Integer doInBackground(Object... objects) {
+                ClassModel classModel = (ClassModel) objects[0];
+                ArrayList<String> xlsDataMuArr = (ArrayList<String>) objects[1];
+                int cols = 40;//列数，根据需求修改
+                int rows = xlsDataMuArr.size() / cols;
+                try {
+                    creator.openExcel(new File((String) objects[2]))
+                            .openSheet(0); //
+                    WritableCellFormat format = ZzFormatCreator
+                            .getInstance()
+                            .createCellFont(WritableFont.ARIAL)
+                            .setAlignment(Alignment.CENTRE, VerticalAlignment.CENTRE)
+                            .setFontSize(14)
+                            .setFontColor(Colour.DARK_GREEN)
+                            .getCellFormat();
+                    for (int i = 0; i < rows; i++) {
+                        for (int j = 0; j < cols; j++) {
+                            String value = (String) xlsDataMuArr.get(i * cols + j);
+                            creator.setColumnWidth(j, 25)
+                                    .setRowHeight(i, 400)
+                                    .fillContent(j, i, value, format);
+                        }
+                    }
+                    //合并指定单元格
+                    for (int i = 0; i < arrClassModel.size() * 3 + arrClassModel.size(); i++) {//有多少个班 每个班占据一大行 i 是行
+                        for (int j = 0; j < 40; j++) {//j是列
+                            if ((i - 1)%4 != 0) {
+                                continue;
+                            }
+                            if (j == 0 ||
+                                    j == 12 || j == 13 ||
+                                    j == 15 || j == 16 ||
+                                    j == 18 || j == 19 ||
+                                    j == 21 || j == 22 ||
+                                    j == 24 || j == 25 ||
+                                    j == 27 || j == 28 ||
+                                    j == 30 || j == 31 ||
+                                    j == 33 || j == 34 ||
+                                    j == 36 || j == 37 ||
+                                    j == 38 ||
+                                    j == 39 || j == 40) {
+                                 creator.mergeRow(j,i,i + 2);
+                            }
+                        }
+                        if (i >= 4 & i%4 ==0){
+                            creator.mergeColumn(i,0,40);
+                        }
+                    }
+                    creator.close();
+                    return  1;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return 0;
+                } catch (BiffException e) {
+                    e.printStackTrace();
+                    return 0;
+                } catch (RowsExceededException e) {
+                    e.printStackTrace();
+                    return 0;
+                } catch (WriteException e) {
+                    e.printStackTrace();
+                    return 0;
+                }
+            }
+            @Override
+            protected void onPostExecute(Integer aVoid) {
+                super.onPostExecute(aVoid);
+                if (aVoid != 1) {
+                    Toast.makeText(context, "导出汇总分析表失败", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(context, "导出汇总分析表成功", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }.execute(classModel,xlsDataMuArr,ExcelPath +"/"+ classModel.examName + "成绩分析表.xls");
+
+
+
+    }
     static Object getKeyValue(String keyName, Object o){
         try {
             String firstLetter = keyName.substring(0, 1).toUpperCase();
@@ -977,7 +1152,7 @@ public class GradeFactory {
     static void setProperty(Object obj,String propertyName,Object value) throws Exception{
 
         Class cls =obj.getClass();//获取obj字节码
-         Field field =cls.getDeclaredField(propertyName);//得到propertyName字段
+        Field field =cls.getDeclaredField(propertyName);//得到propertyName字段
 
         field.setAccessible(true);//因为对象的属性是私有的，先把权限打开。（暴力反射）
         field.set(obj, value);//将传入的obj对象中为propertyName的属性的值设置为value.

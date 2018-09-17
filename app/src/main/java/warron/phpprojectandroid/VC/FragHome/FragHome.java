@@ -32,10 +32,11 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
     View view;
     EditText et_url;
     Button btOpen;
-    Button btUrl;
     Button btnHomeSetting;
     Button btnHomeExportStatistics;
-    Button btnHomeExportAll;
+    Button btnHomeStuSchoolRank;
+    Button btnHomeClassRank;
+    Button btnHomeExportStuInClass;
     Button btnShare;
     String fileUrl;
     File file ;
@@ -43,20 +44,25 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.frag_home, null);
         et_url = view.findViewById(R.id.et_url);
-        btOpen = view.findViewById(R.id.bt_open);
-        btOpen.setOnClickListener(this);
 
-        btUrl = view.findViewById(R.id.bt_url);
-        btUrl.setOnClickListener(this);
+        btOpen = view.findViewById(R.id.btn_OpenFile);
+        btOpen.setOnClickListener(this);
 
         btnHomeSetting = view.findViewById(R.id.btn_home_setting);
         btnHomeSetting.setOnClickListener(this);
 
+
         btnHomeExportStatistics = view.findViewById(R.id.btn_home_exportStatistics);
         btnHomeExportStatistics.setOnClickListener(this);
 
-        btnHomeExportAll = view.findViewById(R.id.btn_home_ExportAll);
-        btnHomeExportAll.setOnClickListener(this);
+        btnHomeStuSchoolRank = view.findViewById(R.id.btn_home_StuSchoolRank);
+        btnHomeStuSchoolRank.setOnClickListener(this);
+
+        btnHomeClassRank = view.findViewById(R.id.btn_home_ClassRank);
+        btnHomeClassRank.setOnClickListener(this);
+
+        btnHomeExportStuInClass = view.findViewById(R.id.btn_home_ExportStuInClass);
+        btnHomeExportStuInClass.setOnClickListener(this);
 
         btnShare = view.findViewById(R.id.btn_home_ShareAll);
         btnShare.setOnClickListener(this);
@@ -67,45 +73,42 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             if (!directory.exists())
                 directory.mkdirs();//这里用这个好一些
         }
-        GradeFactory.getInstance(getContext()).initArrModel(fileUrl);
+//        GradeFactory.getInstance(getContext()).initArrModel(fileUrl);
         return view;
     }
-
+//  if (fileUrl==null ||fileUrl.length() == 0){
+//        Toast.makeText(this,"请先选择文件",Toast.LENGTH_LONG).show();
+//        return;
+//    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.bt_url:{
-                this.chooseFilePath(); /*选择文件路径*/
+            case R.id.btn_OpenFile:{/*选择文件路径*/
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                startActivityForResult(intent, 1);
             }break;
-            case R.id.bt_open:{
-            }break;
+            case R.id.btn_home_setting:{
 
-            case R.id.btn_home_setting: {
-                try {
-                    GradeFactory.getInstance(getContext()).generateAllStuRank();
-                } catch (WriteException e) {
-                    e.printStackTrace();
-                }
             }break;
 
             case R.id.btn_home_exportStatistics: {
-                try {
-                    GradeFactory.getInstance(getContext()).genearteClassRankTable();
-                } catch (WriteException e) {
-                    e.printStackTrace();
-                }
+                 GradeFactory.getInstance(getContext()).generateCollectTable();
             }break;
 
-            case R.id.btn_home_ExportAll: {
-                try {
-                    GradeFactory.getInstance(getContext()).genearteAllStuInClassRankTables();
-                } catch (WriteException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
+            case R.id.btn_home_StuSchoolRank: {
+                GradeFactory.getInstance(getContext()).generateAllStuRank();
             }break;
+
+            case R.id.btn_home_ClassRank: {
+                GradeFactory.getInstance(getContext()).genearteClassRankTable();
+            }break;
+
+            case R.id.btn_home_ExportStuInClass: {
+                GradeFactory.getInstance(getContext()).genearteAllStuInClassRankTables();
+            }break;
+
             case R.id.btn_home_ShareAll: {
                 shareFile();//分享文件
             }break;
@@ -113,13 +116,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
         }
     }
 
-    public  void chooseFilePath(){
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        startActivityForResult(intent, 1);
-    }
-    public  void  shareFile(){
+    public  void  shareFile(){//分享文件
         if (fileUrl!= null) {
             try {
                 File file = new File(fileUrl);
@@ -127,11 +124,9 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 intent2.addCategory("android.intent.category.DEFAULT");
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 Uri uri = Uri.fromFile(file);
-                //application/msword
-                //application/vnd.ms-excel
                 if (fileUrl.contains(".docx")){
                     intent2.setDataAndType(uri, "application/msword");
-                }else if (fileUrl.contains(".xlsx")){
+                }else if (fileUrl.contains(".xlsx") ||fileUrl.contains(".xls")){
                     intent2.setDataAndType(uri, "application/vnd.ms-excel");
                 }else {
                     intent2.setDataAndType(uri, "text/plain");
@@ -142,12 +137,6 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 Toast toast = Toast.makeText(getActivity(), "没有找到打开该文件的应用程序", Toast.LENGTH_SHORT);
                 toast.show();
             }
-
-            // Intent intent2 = new Intent();
-            // intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            //  intent2.setAction(Intent.ACTION_VIEW);
-            //  intent2.setDataAndType((Uri) etUrl.getText(), "text/plain");
-            //   startActivity(intent2);
         } else {
             Toast.makeText(getActivity(), "请选择或输入文件路径", Toast.LENGTH_SHORT).show();
             return;
@@ -180,8 +169,8 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             if(file==null){
                 splicingPath(uri);
             }
-
             et_url.setText(fileUrl.toString());
+            GradeFactory.getInstance(getContext()).initArrModel(fileUrl);
         }
     }
 

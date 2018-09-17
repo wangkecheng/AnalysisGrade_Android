@@ -17,20 +17,11 @@
         android:hint="请选择或输入文件路径"/>
 
     <Button
-        android:id="@+id/bt_url"
+        android:id="@+id/btn_OpenFile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="选择路径"/>
     </LinearLayout>
-    <Button
-        android:id="@+id/bt_open"
-        android:layout_width="match_parent"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_height="wrap_content"
-        android:text="打开文件"/>
-
 
     <Button
         android:layout_marginLeft="10dp"
@@ -54,11 +45,11 @@
         android:layout_height="wrap_content"
         android:background="@drawable/backimg"
         android:layout_weight="1"
-        android:text="导出汇总表"
+        android:text="导出汇总分析表"
         android:textColor="@color/white"
         android:id="@+id/btn_home_exportStatistics"/>
     <Button
-        android:id="@+id/btn_home_ExportAll"
+        android:id="@+id/btn_home_ClassRank"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
@@ -66,13 +57,37 @@
         android:layout_height="wrap_content"
         android:background="@drawable/backimg"
         android:layout_weight="1"
-        android:text="导出所有统计表"
+        android:text="导出班级之间排名表"
+        android:textColor="@color/white"/>
+    <Button
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backimg"
+        android:layout_weight="1"
+        android:text="导出校学生排名表"
         android:textColor="@color/white"
-        />
+        android:id="@+id/btn_home_StuSchoolRank"/>
+
+    <Button
+        android:id="@+id/btn_home_ExportStuInClass"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/backimg"
+        android:layout_weight="1"
+        android:text="导出各班学生班级排名表"
+        android:textColor="@color/white"/>
+
     <Button
         android:id="@+id/btn_home_ShareAll"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

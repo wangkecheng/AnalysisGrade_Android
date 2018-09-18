@@ -1,9 +1,7 @@
 package warron.phpprojectandroid.VC.FragHome;
 
-import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
@@ -24,9 +22,10 @@ import android.widget.Toast;
 
 import java.io.File;
 
-import jxl.write.WriteException;
 import warron.phpprojectandroid.Base.BaseFragment;
 import warron.phpprojectandroid.R;
+import warron.phpprojectandroid.VC.FragHome.Setting.SettingVC;
+import warron.phpprojectandroid.VC.FragHome.model.UserInfoModel;
 
 public class FragHome extends BaseFragment implements View.OnClickListener{
     View view;
@@ -73,13 +72,9 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             if (!directory.exists())
                 directory.mkdirs();//这里用这个好一些
         }
-//        GradeFactory.getInstance(getContext()).initArrModel(fileUrl);
         return view;
     }
-//  if (fileUrl==null ||fileUrl.length() == 0){
-//        Toast.makeText(this,"请先选择文件",Toast.LENGTH_LONG).show();
-//        return;
-//    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -90,26 +85,45 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
                 startActivityForResult(intent, 1);
             }break;
             case R.id.btn_home_setting:{
-
+                UserInfoModel model = GradeFactory.getCofigModel();
+                Intent intent = new Intent(getContext(), SettingVC.class);
+                startActivity(intent);
             }break;
 
             case R.id.btn_home_exportStatistics: {
+                if (fileUrl==null ||fileUrl.length() == 0){
+                    Toast.makeText(getContext(),"请先选择文件",Toast.LENGTH_LONG).show();
+                    return;
+                }
                  GradeFactory.getInstance(getContext()).generateCollectTable();
             }break;
 
             case R.id.btn_home_StuSchoolRank: {
+                if (fileUrl==null ||fileUrl.length() == 0){
+                    Toast.makeText(getContext(),"请先选择文件",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 GradeFactory.getInstance(getContext()).generateAllStuRank();
             }break;
 
             case R.id.btn_home_ClassRank: {
+                if (fileUrl==null ||fileUrl.length() == 0){
+                    Toast.makeText(getContext(),"请先选择文件",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 GradeFactory.getInstance(getContext()).genearteClassRankTable();
             }break;
 
             case R.id.btn_home_ExportStuInClass: {
+                if (fileUrl==null ||fileUrl.length() == 0){
+                    Toast.makeText(getContext(),"请先选择文件",Toast.LENGTH_LONG).show();
+                    return;
+                }
                 GradeFactory.getInstance(getContext()).genearteAllStuInClassRankTables();
             }break;
 
             case R.id.btn_home_ShareAll: {
+                
                 shareFile();//分享文件
             }break;
 

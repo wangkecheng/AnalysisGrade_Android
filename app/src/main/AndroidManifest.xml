@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="warron.phpprojectandroid">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -19,6 +20,7 @@
         <!--主页-->
         <activity
             android:name=".VC.MainActivity"
+            android:windowSoftInputMode="stateHidden"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,6 +28,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".VC.FragHome.Setting.SettingVC"
+            android:windowSoftInputMode="stateHidden"
+            android:theme="@style/Theme.Intro">
+
         </activity>
     </application>
 

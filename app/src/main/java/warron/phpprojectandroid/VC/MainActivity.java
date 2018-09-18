@@ -1,6 +1,7 @@
 package warron.phpprojectandroid.VC;
 
 import android.Manifest;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,6 +13,10 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import org.xutils.DbManager;
+import org.xutils.ex.DbException;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +25,14 @@ import eu.long1.spacetablayout.SpaceTabLayout;
 
 import eu.long1.spacetablayout.TabOnclickLisener;
 import warron.phpprojectandroid.Base.BaseActivity;
+import warron.phpprojectandroid.Base.CacheTool;
+import warron.phpprojectandroid.Base.MyApplication;
 import warron.phpprojectandroid.R;
 import warron.phpprojectandroid.Tools.ToolbarHelper;
 import warron.phpprojectandroid.VC.FragHome.FragHome;
+import warron.phpprojectandroid.VC.FragHome.GradeFactory;
+import warron.phpprojectandroid.VC.FragHome.Setting.SettingVC;
+import warron.phpprojectandroid.VC.FragHome.model.UserInfoModel;
 
 public class MainActivity extends BaseActivity {
     SpaceTabLayout tabLayout;
@@ -37,16 +47,29 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        DbManager manager = CacheTool.getDBManager();
+        UserInfoModel model = GradeFactory.getCofigModel();
+        model.sumScoreChn = 1234;
+        model.keyId = "123";
+        try {
+            manager.saveOrUpdate(model);
+            UserInfoModel test = manager.selector(UserInfoModel.class).where("keyId", "=", "123").findFirst();
+
+        } catch (DbException e) {
+            e.printStackTrace();
+        }
+
+
         String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.MOUNT_FORMAT_FILESYSTEMS,Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS,Manifest.permission.DELETE_CACHE_FILES};//,Manifest.permission.READ_EXTERNAL_STORAGE,
 
         ActivityCompat.requestPermissions(this, permissions, 321);
-
         fragmentList = new ArrayList<>();
         fragmentList.add(new FragHome());
         final RelativeLayout coordinatorLayout = (RelativeLayout) findViewById(R.id.rlayout);
 
         List<String> fragTitList = new ArrayList<String>();//标题
-        fragTitList.add("会话列表");
+        fragTitList.add("导出方式");
 
         List<Integer> fragImgList = new ArrayList<Integer>();//图片
         fragImgList.add(R.mipmap.conversation_nor);

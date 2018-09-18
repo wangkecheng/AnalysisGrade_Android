@@ -6,7 +6,7 @@ import org.xutils.db.annotation.Table;
 /**
  * onCreated = "sql"：当第一次创建表需要插入数据时候在此写sql语句
  */
-@Table(name = "userInfoModel")
+@Table(name = "userInfoModel", onCreated = "CREATE UNIQUE INDEX index_name ON userInfoModel(id)")
 public class UserInfoModel {
     public UserInfoModel(){
 
@@ -87,7 +87,6 @@ public class UserInfoModel {
 
   public void setKeyId(String keyId) {
     this.keyId = keyId;
-    this.id = Long.parseLong(keyId);//这里做一个强制转换
   }
   public int getHasConfiguration() {
     return hasConfiguration;

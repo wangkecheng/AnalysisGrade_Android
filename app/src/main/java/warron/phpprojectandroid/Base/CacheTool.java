@@ -11,7 +11,7 @@ import org.xutils.x;
 public class CacheTool {
 
     public static DbManager getDBManager(){
-        DbManager manager = ((MyApplication)x.app()).manager;
+        DbManager manager = ((MyApplication)x.app()).creatDB();
         return manager;
     }
 

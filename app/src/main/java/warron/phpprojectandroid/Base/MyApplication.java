@@ -19,10 +19,13 @@ import warron.phpprojectandroid.R;
  */
 public class MyApplication extends Application {
 
-  public  DbManager manager;
+  private   DbManager manager;
     @Override
     public void onCreate() {
         super.onCreate();
+         this.creatDB();
+    }
+    public  DbManager creatDB(){
         x.Ext.init(this);
         x.Ext.setDebug(BuildConfig.DEBUG); // 开启debug会影响性能
 
@@ -51,7 +54,8 @@ public class MyApplication extends Application {
                     public void onUpgrade(DbManager db, int oldVersion, int newVersion) {
 
                     }
-        }); //这里创建数据库
+                }); //这里创建数据库
         manager = x.getDb(daoConfig);
+        return manager;
     }
 }

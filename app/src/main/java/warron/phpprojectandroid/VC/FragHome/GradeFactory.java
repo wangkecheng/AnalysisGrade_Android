@@ -50,23 +50,23 @@ public class GradeFactory {
     ArrayList<StudentModel> arrModel;
     ArrayList<ClassModel> arrCollectModel;//年级排名
     ArrayList<ClassModel> arrClassModel;//装的是班级模型
-    int allProjectSumScore;
-    int sumScoreChn;
-    int sumScoreMath;
-    int sumScoreEng;
+    public int allProjectSumScore;
+    public int sumScoreChn;
+    public int sumScoreMath;
+    public int sumScoreEng;
 
-    int sumScorePlitical;
-    int sumScoreHistory;
-    int sumScoreGrography;
+    public int sumScorePlitical;
+    public int sumScoreHistory;
+    public int sumScoreGrography;
 
-    int sumScorePhysical;
-    int sumScoreBiology;
-    int sumScoreChimistry;
+    public int sumScorePhysical;
+    public int sumScoreBiology;
+    public int sumScoreChimistry;
 
-    int totalScoreLbl;
-    float goodRate;//优生率
-    float passRate;//及格率
-    float difficultyRate;//学困率
+    public int totalScoreLbl;
+    public float goodRate;//优生率
+    public float passRate;//及格率
+    public float difficultyRate;//学困率
     Context context;//操作的上下文
     final  ZzExcelCreator creator =  ZzExcelCreator.getInstance();
     String keyName;
@@ -74,11 +74,9 @@ public class GradeFactory {
     public static UserInfoModel getCofigModel() {
         DbManager manager  =  CacheTool.getDBManager();
         try {
-            List<UserInfoModel> list = manager.selector(UserInfoModel.class)
-                    .where("id", "=", 123)
-                    .findAll();
-            if (list != null && list.size() != 0) {
-                return list.get(0);
+            UserInfoModel model = manager.selector(UserInfoModel.class).where("keyId", "=", "123").findFirst();;
+            if (model != null) {
+                return model;
             }
         } catch (DbException e) {
             e.printStackTrace();
@@ -94,6 +92,9 @@ public class GradeFactory {
     }
 
     private  static  GradeFactory instance  = null;
+    public   static synchronized GradeFactory getInstance() {
+          return  instance;
+    }
     public   static synchronized GradeFactory getInstance(Context context){
 
         if (instance == null){
@@ -102,15 +103,15 @@ public class GradeFactory {
             instance.ExcelPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator +context.getResources().getString(R.string.app_name)+File.separator+"成绩分析表";
             instance.sumScoreBiology  =
             instance.sumScoreChimistry=
-                            instance.sumScorePhysical =
-                                    instance.sumScoreGrography=
-                                            instance.sumScoreHistory  =
-                                                    instance.sumScorePlitical =
-                                                            instance.sumScoreEng      =
-                                                                    instance.sumScoreMath     =
-                                                                            instance.sumScoreChn      = 100;
+            instance.sumScorePhysical =
+            instance.sumScoreGrography=
+            instance.sumScoreHistory  =
+            instance.sumScorePlitical =
+            instance.sumScoreEng      =
+            instance.sumScoreMath     =
+            instance.sumScoreChn      = 100;
             instance.allProjectSumScore = 900;
-            instance.goodRate = (float) 0.8;
+            instance.goodRate = (float)0.8;
             instance.passRate = (float)0.6;
             instance.difficultyRate = (float)0.3;
         }
@@ -124,7 +125,7 @@ public class GradeFactory {
             instance.sumScorePlitical = conModel.sumScorePlitical;
             instance.sumScoreEng      = conModel.sumScoreEng;
             instance.sumScoreMath     = conModel.sumScoreMath;
-            instance.sumScoreChn      =  conModel.sumScoreChn;
+            instance.sumScoreChn      = conModel.sumScoreChn;
             instance.allProjectSumScore =  conModel.allProjectSumScore;
             instance.goodRate =  conModel.goodRate;
             instance.passRate =  conModel.passRate;
@@ -132,7 +133,7 @@ public class GradeFactory {
         }
         return instance;
     }
-    public  void  initArrModel(String fileUrl){
+    public  void  initArrModel(final String fileUrl){
         this.arrModel =  new ArrayList<StudentModel>();
         new AsyncTask<String, Void, Integer>() {
 
@@ -141,7 +142,7 @@ public class GradeFactory {
                 Workbook workbook = null;
                 FileInputStream inputStream;
                 try {//需要修改
-                    File file=new File(Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + context.getResources().getString(R.string.app_name)+File.separator+"analysis.xls");//
+                    File file=new File(params[0]);//Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + context.getResources().getString(R.string.app_name)+File.separator+"analysis.xls"
                     workbook = Workbook.getWorkbook(file);
                     workbook.getNumberOfSheets();
                     Sheet sheet = workbook.getSheet(0);
@@ -209,21 +210,24 @@ public class GradeFactory {
             protected void onPostExecute(Integer aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid == 1) {
-                    instance.caculateArrClassModel();
-                    instance.calculateClassRank();
-                    instance.createExcel();
-                    try {
-                        instance.calculateCollectTable();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    Toast.makeText(context, "所有信息已经初始化完毕", Toast.LENGTH_SHORT).show();
+                   instance.recalculate();
                 }
             }
-        }.execute();
+        }.execute(fileUrl);
 
     }
 
+    public void recalculate(){
+        instance.caculateArrClassModel();
+        instance.calculateClassRank();
+        instance.createExcel();
+        try {
+            instance.calculateCollectTable();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(context, "所有信息已经初始化完毕", Toast.LENGTH_SHORT).show();
+    }
     private void createExcel() {//把表创建好 把sheet创建好
 
         StudentModel model =  arrModel.get(0);

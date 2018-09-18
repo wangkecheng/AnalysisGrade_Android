@@ -10,27 +10,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a1589326-69e3-48dd-93db-1531df0c1398" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/Setting/SettingVC.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/edittext_border.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/vc_activity_setting.xml" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/CacheTool.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/CacheTool.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/MyApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/MyApplication.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/FragHome.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/FragHome.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/model/UserInfoModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/model/UserInfoModel.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/MainActivity.java" />
       <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-17-09-22-36-131.json" afterPath="" />
       <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-17-09-22-36-131.rawproto" afterPath="" />
       <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-17-09-48-10-824.json" afterPath="" />
@@ -113,7 +92,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1580">
               <caret line="125" column="16" lean-forward="false" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
-              <folding />
+              <folding>
+                <element signature="e#2571#2614#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -9008,8 +8989,8 @@
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="269" />
-    <option name="y" value="26" />
+    <option name="x" value="231" />
+    <option name="y" value="634" />
     <option name="width" value="1505" />
     <option name="height" value="1057" />
   </component>
@@ -9334,7 +9315,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="269" y="26" width="1505" height="1057" extended-state="0" />
+    <frame x="231" y="634" width="1505" height="1057" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.082105264" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -9949,7 +9930,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1580">
           <caret line="125" column="16" lean-forward="false" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="e#2571#2614#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

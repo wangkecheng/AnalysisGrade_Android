@@ -123,7 +123,7 @@ public class FragHome extends BaseFragment implements View.OnClickListener{
             }break;
 
             case R.id.btn_home_ShareAll: {
-                
+
                 shareFile();//分享文件
             }break;
 

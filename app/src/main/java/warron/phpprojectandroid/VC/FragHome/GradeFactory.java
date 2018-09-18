@@ -395,9 +395,9 @@ public class GradeFactory {
             protected void onPostExecute(Integer aVoid) {
                 super.onPostExecute(aVoid);
                 if (aVoid != 1) {
-                    Toast.makeText(context, "导出汇总表失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出校学生排名失败", Toast.LENGTH_SHORT).show();
                 }else{
-                    Toast.makeText(context, "导出汇总表成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "导出校学生排名成功", Toast.LENGTH_SHORT).show();
                 }
             }
         }.execute(xlsDataMuArr,ExcelPath + "/" + model.examName + "成绩分析表.xls");

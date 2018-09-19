@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/toasty/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f428a23eb61795d0b4881425d82326dc7d6b7d50">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/38.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/zz-excel-creator/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="c486124ab5f45d7215501862b1ed2eb2e9d849ab">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/37.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/OWLoadingView/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="af87f8a6de5b6227de049c5ef4b753f66d3c90b6">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/39.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/pullrecyclerview/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="fdb1418a5e3057f622ca70cff767f280bbb292ba">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/33.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/PhotoPicker/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="a342e5debf3d3dee55d7032fc54faa06eaccada1">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/34.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/GuideActivity/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="444b199770e0337d6dc2752924643e4f1ba72996">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/40.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/spacetablayout/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="222bddf725d0af6899e395dc6a48357073c24189">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/36.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="/Users/wangshuai/Desktop/AnalysisGrade_Android/sweetsheet/build/intermediates/intermediate-jars/release/classes.jar"
+        jumboMode="false"
+        min-sdk-version="18"
+        optimize="true"
+        revision="26.0.2"
+        sha1="8cb4c2c05a219bab8223d016dae46f9b44a8f6ec">
+        <dex dex="/Users/wangshuai/Desktop/AnalysisGrade_Android/app/build/intermediates/transforms/preDex/release/35.jar" />
+    </item>
+
+</items>

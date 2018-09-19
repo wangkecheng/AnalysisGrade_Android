@@ -79,33 +79,31 @@ public class SettingVC extends BaseActivity implements View.OnClickListener {
                 if (editTextChn.isFocused()){
                     factory.sumScoreChn = score;
                 }
-                else if (editTextMath.isFocused()) {
-                    factory.sumScoreChn = score;
-                }
                 else  if (editTextEng.isFocused()){
+                    factory.sumScoreEng = score;
+                }
+                else  if (editTextMath.isFocused()){
                     factory.sumScoreMath = score;
                 }
                 else  if (editTextMiliraty.isFocused()){
-                    factory.sumScoreEng = score;
-                }
-                else  if (editTextHis.isFocused()){
                     factory.sumScorePlitical = score;
                 }
-                else  if (editTextGeo.isFocused()){
+                else  if (editTextHis.isFocused()){
                     factory.sumScoreHistory = score;
                 }
-                else  if (editTextPhy.isFocused()){
+                else  if (editTextGeo.isFocused()){
                     factory.sumScoreGrography = score;
                 }
-                else  if (editTextChemis.isFocused()){
+                else  if (editTextPhy.isFocused()){
                     factory.sumScorePhysical = score;
+                }
+                else  if (editTextChemis.isFocused()){
+                    factory.sumScoreChimistry = score;
                 }
                 else  if (editTextBio.isFocused()){
                     factory.sumScoreBiology = score;
                 }
-                else  if (editTextPass.isFocused()){
-                    factory.sumScoreChimistry = score;
-                }
+                setData();
             }
         };
         editTextChn     .addTextChangedListener(textWatcher);
@@ -129,47 +127,51 @@ public class SettingVC extends BaseActivity implements View.OnClickListener {
 //        } catch (DbException e) {
 //            e.printStackTrace();
 //        }
-        if (model.hasConfiguration == 1){
-            editTextChn      .setText(model.sumScoreChn+"");
-            editTextMath     .setText(model.sumScoreMath+"");
-            editTextEng      .setText(model.sumScoreEng+"");
-            editTextMiliraty .setText(model.sumScorePlitical+"");
-            editTextHis      .setText(model.sumScoreHistory+"");
-            editTextGeo      .setText(model.sumScoreGrography+"");
-            editTextPhy      .setText(model.sumScorePhysical+"");
-            editTextBio      .setText(model.sumScoreBiology+"");
-            editTextChemis   .setText(model.sumScoreChimistry+"");
-            editTextGood     .setText(model.goodRate+"");
-            editTextPass     .setText(model.passRate+"");
-            editTextDiculity .setText(model.difficultyRate +"");
+        if (model.hasConfiguration!=null && Integer.parseInt(model.hasConfiguration) == 1){
+            editTextChn      .setText(model.sumScoreChn);
+            editTextMath     .setText(model.sumScoreMath);
+            editTextEng      .setText(model.sumScoreEng);
+            editTextMiliraty .setText(model.sumScorePlitical);
+            editTextHis      .setText(model.sumScoreHistory);
+            editTextGeo      .setText(model.sumScoreGrography);
+            editTextPhy      .setText(model.sumScorePhysical);
+            editTextBio      .setText(model.sumScoreBiology);
+            editTextChemis   .setText(model.sumScoreChimistry);
+            editTextGood     .setText(model.goodRate);
+            editTextPass     .setText(model.passRate);
+            editTextDiculity .setText(model.difficultyRate);
             setData();
         }
     }
     public void setData(){
+GradeFactory factory = GradeFactory.getInstance();
 
-        GradeFactory.getInstance(this).allProjectSumScore  = model.sumScoreChn + model.sumScoreMath +  model.sumScoreEng
-                + model.sumScorePlitical +model.sumScoreHistory +  model.sumScoreGrography
-                + model.sumScorePhysical + model.sumScoreBiology + model.sumScoreChimistry;
-        totalScoreLbl.setText("总分: "+ GradeFactory.getInstance(this).allProjectSumScore +"");
+        factory.allProjectSumScore  = factory.sumScoreChn  + + factory.sumScoreMath+ factory.sumScoreEng
+                + + factory.sumScorePlitical+ factory.sumScoreHistory+ factory.sumScoreGrography+ factory.sumScorePhysical+ factory.sumScoreBiology+ factory.sumScoreChimistry ;
+        totalScoreLbl.setText("总分: "+ GradeFactory.getInstance().allProjectSumScore +"");
     }
     @Override
     public void onClick(View v) {
         GradeFactory factory = GradeFactory.getInstance();
-        model.sumScoreBiology = factory.sumScoreBiology;
-        model.sumScoreChimistry = factory.sumScoreChimistry;
-        model.sumScorePhysical = factory.sumScorePhysical;
-        model.sumScoreGrography = factory.sumScoreGrography;
-        model.sumScoreHistory = factory.sumScoreHistory;
-        model.sumScorePlitical = factory.sumScorePlitical;
-        model.sumScoreEng = factory.sumScoreEng;
-        model.sumScoreMath = factory.sumScoreMath;
-        model.sumScoreChn = factory.sumScoreChn;
-        model.allProjectSumScore = factory.allProjectSumScore;
-        model.goodRate = factory.goodRate = Float.parseFloat(String.valueOf(editTextGood.getText()));
-        model.passRate = factory.passRate = Float.parseFloat(String.valueOf(editTextPass.getText()));
-        model.difficultyRate = factory.difficultyRate = Float.parseFloat(String.valueOf(editTextDiculity.getText()));;
-        model.hasConfiguration = 1;
-
+        model.sumScoreBiology = factory.sumScoreBiology + "";
+        model.sumScoreChimistry = factory.sumScoreChimistry + "";
+        model.sumScorePhysical = factory.sumScorePhysical + "";
+        model.sumScoreGrography = factory.sumScoreGrography + "";
+        model.sumScoreHistory = factory.sumScoreHistory + "";
+        model.sumScorePlitical = factory.sumScorePlitical + "";
+        model.sumScoreEng =   factory.sumScoreEng + "";
+        model.sumScoreMath = factory.sumScoreMath + "";
+        model.sumScoreChn = factory.sumScoreChn + "";
+        model.allProjectSumScore = factory.allProjectSumScore + "";
+        factory.goodRate = Float.parseFloat(String.valueOf(editTextGood.getText()));
+        factory.passRate = Float.parseFloat(String.valueOf(editTextPass.getText()));
+        factory.difficultyRate = Float.parseFloat(String.valueOf(editTextDiculity.getText()));;
+        model.goodRate = String.valueOf(factory.goodRate);
+        model.passRate = String.valueOf(factory.passRate);
+        model.difficultyRate =  String.valueOf(factory.difficultyRate);
+        model.hasConfiguration = "1";
+        setData();
+        GradeFactory.getInstance().recalculate();
         try {
             DbManager manager =  CacheTool.getDBManager();
 
@@ -185,49 +187,12 @@ public class SettingVC extends BaseActivity implements View.OnClickListener {
             model.keyId = "123";
             manager.saveOrUpdate(model);
             manager.close();
+            finish();
         } catch (DbException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        GradeFactory.getInstance().recalculate();
-        finish();
-//        x.task().run(new Runnable() { // 异步执行
-//            @Override
-//            public void run() {
-//                x.task().post(new Runnable() { // UI同步执行
-//                    @Override
-//                    public void run() {
-//                        try {
-//                            DbManager manager = ((MyApplication) x.app()).manager;
-//                            TableEntity<UserInfoModel> entity = manager.getTable(UserInfoModel.class);
-//                            LinkedHashMap<String, ColumnEntity> columnMap = entity.getColumnMap();
-//                            String json = JSON.toJSONString(model);
-//                            Map<String, String> map = JSON.parseObject(json, Map.class);//将对象中的属性和值转换成字典
-//                            for (String column : map.keySet()) {//如果不存在列就添加 同时要在UserInfoModel中添加 列
-//                                if (!columnMap.containsKey(column)) {
-//                                    manager.addColumn(UserInfoModel.class, column);
-//                                }
-//                            }
-//                            model.keyId = "123";
-//                            manager.saveOrUpdate(model);
-//                            manager.close();
-//                        } catch (DbException e) {
-//                            e.printStackTrace();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                        x.task().post(new Runnable() { // UI同步执行
-//                            @Override
-//                            public void run() {
-//                                GradeFactory.getInstance().recalculate();
-//                                finish();
-//                            }
-//                        });
-//                    }
-//                });
-//            }
-//        });
     }
     @Override
     protected void initToolBar(final ToolbarHelper toolbarHelper, Boolean isShowBackBtn) {

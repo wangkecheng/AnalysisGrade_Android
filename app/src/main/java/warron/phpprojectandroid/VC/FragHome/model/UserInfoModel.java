@@ -33,46 +33,46 @@ public class UserInfoModel {
   public String keyId;
 
     @Column(name = "hasConfiguration")
-  public int hasConfiguration;//是否配置过 初次创建是没有的 只要存入数据库都有值
+  public String hasConfiguration;//是否配置过 初次创建是没有的 只要存入数据库都有值
 
     @Column(name = "allProjectSumScore")
-  public int allProjectSumScore;
+  public String allProjectSumScore;
 
     @Column(name = "sumScoreChn")
-  public int sumScoreChn;
+  public String sumScoreChn;
 
     @Column(name = "sumScoreMath")
-  public int sumScoreMath;
+  public String sumScoreMath;
 
     @Column(name = "sumScoreEng")
-  public int sumScoreEng;
+  public String sumScoreEng;
 
     @Column(name = "sumScorePlitical")
-  public int sumScorePlitical;
+  public String sumScorePlitical;
 
     @Column(name = "sumScoreHistory")
-  public int sumScoreHistory;
+  public String sumScoreHistory;
 
     @Column(name = "sumScoreGrography")
-  public int sumScoreGrography;
+  public String sumScoreGrography;
 
     @Column(name = "sumScorePhysical")
-  public int sumScorePhysical;
+  public String sumScorePhysical;
 
     @Column(name = "sumScoreBiology")
-  public int sumScoreBiology;
+  public String sumScoreBiology;
 
     @Column(name = "sumScoreChimistry")
-  public int sumScoreChimistry;
+  public String sumScoreChimistry;
 
     @Column(name = "totalScoreLbl")
-  public int totalScoreLbl;
+  public String totalScoreLbl;
     @Column(name = "goodRate")
-  public float goodRate;//优生率
+  public String goodRate;//优生率
     @Column(name = "passRate")
-  public float passRate;//及格率
+  public String passRate;//及格率
     @Column(name = "difficultyRate")
-  public float difficultyRate;//学困率
+  public String difficultyRate;//学困率
 
   public long getId() {
     return id;
@@ -88,123 +88,124 @@ public class UserInfoModel {
   public void setKeyId(String keyId) {
     this.keyId = keyId;
   }
-  public int getHasConfiguration() {
+
+  public String getHasConfiguration() {
     return hasConfiguration;
   }
 
-  public void setHasConfiguration(int hasConfiguration) {
+  public void setHasConfiguration(String hasConfiguration) {
     this.hasConfiguration = hasConfiguration;
   }
 
-  public int getAllProjectSumScore() {
+  public String getAllProjectSumScore() {
     return allProjectSumScore;
   }
 
-  public void setAllProjectSumScore(int allProjectSumScore) {
+  public void setAllProjectSumScore(String allProjectSumScore) {
     this.allProjectSumScore = allProjectSumScore;
   }
 
-  public int getSumScoreChn() {
+  public String getSumScoreChn() {
     return sumScoreChn;
   }
 
-  public void setSumScoreChn(int sumScoreChn) {
+  public void setSumScoreChn(String sumScoreChn) {
     this.sumScoreChn = sumScoreChn;
   }
 
-  public int getSumScoreMath() {
+  public String getSumScoreMath() {
     return sumScoreMath;
   }
 
-  public void setSumScoreMath(int sumScoreMath) {
+  public void setSumScoreMath(String sumScoreMath) {
     this.sumScoreMath = sumScoreMath;
   }
 
-  public int getSumScoreEng() {
+  public String getSumScoreEng() {
     return sumScoreEng;
   }
 
-  public void setSumScoreEng(int sumScoreEng) {
+  public void setSumScoreEng(String sumScoreEng) {
     this.sumScoreEng = sumScoreEng;
   }
 
-  public int getSumScorePlitical() {
+  public String getSumScorePlitical() {
     return sumScorePlitical;
   }
 
-  public void setSumScorePlitical(int sumScorePlitical) {
+  public void setSumScorePlitical(String sumScorePlitical) {
     this.sumScorePlitical = sumScorePlitical;
   }
 
-  public int getSumScoreHistory() {
+  public String getSumScoreHistory() {
     return sumScoreHistory;
   }
 
-  public void setSumScoreHistory(int sumScoreHistory) {
+  public void setSumScoreHistory(String sumScoreHistory) {
     this.sumScoreHistory = sumScoreHistory;
   }
 
-  public int getSumScoreGrography() {
+  public String getSumScoreGrography() {
     return sumScoreGrography;
   }
 
-  public void setSumScoreGrography(int sumScoreGrography) {
+  public void setSumScoreGrography(String sumScoreGrography) {
     this.sumScoreGrography = sumScoreGrography;
   }
 
-  public int getSumScorePhysical() {
+  public String getSumScorePhysical() {
     return sumScorePhysical;
   }
 
-  public void setSumScorePhysical(int sumScorePhysical) {
+  public void setSumScorePhysical(String sumScorePhysical) {
     this.sumScorePhysical = sumScorePhysical;
   }
 
-  public int getSumScoreBiology() {
+  public String getSumScoreBiology() {
     return sumScoreBiology;
   }
 
-  public void setSumScoreBiology(int sumScoreBiology) {
+  public void setSumScoreBiology(String sumScoreBiology) {
     this.sumScoreBiology = sumScoreBiology;
   }
 
-  public int getSumScoreChimistry() {
+  public String getSumScoreChimistry() {
     return sumScoreChimistry;
   }
 
-  public void setSumScoreChimistry(int sumScoreChimistry) {
+  public void setSumScoreChimistry(String sumScoreChimistry) {
     this.sumScoreChimistry = sumScoreChimistry;
   }
 
-  public int getTotalScoreLbl() {
+  public String getTotalScoreLbl() {
     return totalScoreLbl;
   }
 
-  public void setTotalScoreLbl(int totalScoreLbl) {
+  public void setTotalScoreLbl(String totalScoreLbl) {
     this.totalScoreLbl = totalScoreLbl;
   }
 
-  public float getGoodRate() {
+  public String getGoodRate() {
     return goodRate;
   }
 
-  public void setGoodRate(float goodRate) {
+  public void setGoodRate(String goodRate) {
     this.goodRate = goodRate;
   }
 
-  public float getPassRate() {
+  public String getPassRate() {
     return passRate;
   }
 
-  public void setPassRate(float passRate) {
+  public void setPassRate(String passRate) {
     this.passRate = passRate;
   }
 
-  public float getDifficultyRate() {
+  public String getDifficultyRate() {
     return difficultyRate;
   }
 
-  public void setDifficultyRate(float difficultyRate) {
+  public void setDifficultyRate(String difficultyRate) {
     this.difficultyRate = difficultyRate;
   }
 }

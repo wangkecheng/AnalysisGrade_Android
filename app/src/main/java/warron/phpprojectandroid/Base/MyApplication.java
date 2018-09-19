@@ -40,7 +40,7 @@ public class MyApplication extends Application {
 
         DbManager.DaoConfig daoConfig =  new DbManager.DaoConfig()
                 .setDbName("analysis.db") //设置数据库名，默认xutils.db
-                .setDbDir(new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + getResources().getString(R.string.app_name)))
+                .setDbDir(new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/waringDataBase/" + getResources().getString(R.string.app_name)))
                 .setDbVersion(2) //设置数据库的版本号
                 .setDbOpenListener(new DbManager.DbOpenListener() {
                     @Override//设置数据库打开的监听

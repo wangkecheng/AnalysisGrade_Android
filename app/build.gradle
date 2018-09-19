@@ -37,10 +37,14 @@ dependencies {
     //fastjson
     compile 'com.alibaba:fastjson:1.1.52.android'
     compile 'org.xutils:xutils:3.5.0'
+
     compile project(':sweetsheet')
     compile project(':PhotoPicker')
     compile project(':spacetablayout')
     compile project(':zz-excel-creator')
+    testCompile 'junit:junit:4.12'
+    compile project(':toasty')
+    compile project(':OWLoadingView')
     implementation 'com.android.support:appcompat-v7:26+'
     implementation 'com.android.support:design:26+'
     implementation 'com.android.support:recyclerview-v7:26+'

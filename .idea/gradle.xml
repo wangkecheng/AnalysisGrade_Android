@@ -9,11 +9,13 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/GuideActivity" />
+            <option value="$PROJECT_DIR$/OWLoadingView" />
             <option value="$PROJECT_DIR$/PhotoPicker" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/pullrecyclerview" />
             <option value="$PROJECT_DIR$/spacetablayout" />
             <option value="$PROJECT_DIR$/sweetsheet" />
+            <option value="$PROJECT_DIR$/toasty" />
             <option value="$PROJECT_DIR$/xutils" />
             <option value="$PROJECT_DIR$/zz-excel-creator" />
           </set>

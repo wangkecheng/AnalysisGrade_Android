@@ -9,160 +9,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a1589326-69e3-48dd-93db-1531df0c1398" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_animated_vector_drawable_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_appcompat_v7_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_24_2_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_annotations_25_0_0_jar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_compat_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_ui_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_core_utils_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_fragment_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_media_compat_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_v4_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_android_support_support_vector_drawable_25_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/OWLoadingView/OWLoadingView.iml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactoryInterface.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_512x512.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_01.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_02.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_03.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_04.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_05.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_06.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_07.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_08.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_09.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_10.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_11.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/loading_12.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/myloading.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/myprogressbar.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/percentage.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/tips_bg.9.png" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/resourceHashesCache.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/classAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/jarAnalysis.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/javaCompile.lock" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/javaCompile/taskJars.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/fileSnapshots.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.bin" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" afterPath="$PROJECT_DIR$/.gradle/4.1/taskHistory/taskHistory.lock" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" afterPath="$PROJECT_DIR$/.idea/gradle.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/GuideActivity/GuideActivity.iml" afterPath="$PROJECT_DIR$/GuideActivity/GuideActivity.iml" />
-      <change beforePath="$PROJECT_DIR$/PhotoPicker/PhotoPicker.iml" afterPath="$PROJECT_DIR$/PhotoPicker/PhotoPicker.iml" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" afterPath="$PROJECT_DIR$/app/app.iml" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" afterPath="$PROJECT_DIR$/app/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/MyApplication.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/Base/MyApplication.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/FragHome.java" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/Setting/SettingVC.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/Setting/SettingVC.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/model/UserInfoModel.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/model/UserInfoModel.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/MainActivity.java" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/frag_home.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-42-42-703.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-42-42-703.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-43-19-489.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-43-19-489.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-45-25-832.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-45-25-832.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-49-04-437.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-49-04-437.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-49-47-056.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-49-47-056.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-50-06-957.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-50-06-957.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-50-47-897.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-50-47-897.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-51-11-774.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-51-11-774.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-53-12-812.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-53-12-812.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-53-27-300.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-53-27-300.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-54-48-399.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-54-48-399.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-55-15-466.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-55-15-466.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-55-37-702.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-55-37-702.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-58-37-688.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-58-37-688.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-58-59-457.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-18-58-59-457.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-00-55-557.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-00-55-557.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-00-58-049.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-00-58-049.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-01-48-384.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-01-48-384.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-03-48-162.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-03-48-162.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-05-36-280.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-05-36-280.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-09-29-661.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-09-29-661.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-11-09-109.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-11-09-109.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-11-30-279.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-11-30-279.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-13-20-411.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-13-20-411.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-16-00-025.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-16-00-025.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-16-45-009.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-16-45-009.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-17-17-541.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-17-17-541.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-25-39-221.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-25-39-221.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-26-59-853.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-26-59-853.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-27-19-369.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-27-19-369.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-27-38-518.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-27-38-518.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-28-37-166.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-28-37-166.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-29-20-952.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-29-20-952.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-30-09-258.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-30-09-258.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-30-34-427.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-30-34-427.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-31-05-353.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-31-05-353.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-32-15-697.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-32-15-697.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-33-27-329.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-33-27-329.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-35-52-479.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-35-52-479.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-37-40-138.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-37-40-138.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-38-49-483.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-38-49-483.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-40-06-001.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-09-18-19-40-06-001.rawproto" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/pullrecyclerview/build.gradle" afterPath="$PROJECT_DIR$/pullrecyclerview/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/pullrecyclerview/pullrecyclerview.iml" afterPath="$PROJECT_DIR$/pullrecyclerview/pullrecyclerview.iml" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" afterPath="$PROJECT_DIR$/settings.gradle" />
-      <change beforePath="$PROJECT_DIR$/spacetablayout/spacetablayout.iml" afterPath="$PROJECT_DIR$/spacetablayout/spacetablayout.iml" />
-      <change beforePath="$PROJECT_DIR$/sweetsheet/sweetsheet.iml" afterPath="$PROJECT_DIR$/sweetsheet/sweetsheet.iml" />
-      <change beforePath="$PROJECT_DIR$/zz-excel-creator/zz-excel-creator.iml" afterPath="$PROJECT_DIR$/zz-excel-creator/zz-excel-creator.iml" />
-    </list>
+    <list default="true" id="a1589326-69e3-48dd-93db-1531df0c1398" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -339,8 +186,8 @@
       <file leaf-file-name="GradeFactory.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18736">
-              <caret line="1170" column="32" lean-forward="false" selection-start-line="1170" selection-start-column="32" selection-end-line="1170" selection-end-column="32" />
+            <state relative-caret-position="168">
+              <caret line="316" column="0" lean-forward="true" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
               <folding>
                 <element signature="e#43595#44070#0" expanded="true" />
                 <element signature="e#44069#44070#0" expanded="true" />
@@ -11340,7 +11187,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0953462" sideWeight="0.89910775" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.0953462" sideWeight="0.89910775" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19315404" sideWeight="0.0857461" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -11845,8 +11692,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/warron/phpprojectandroid/VC/FragHome/GradeFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18736">
-          <caret line="1170" column="32" lean-forward="false" selection-start-line="1170" selection-start-column="32" selection-end-line="1170" selection-end-column="32" />
+        <state relative-caret-position="168">
+          <caret line="316" column="0" lean-forward="true" selection-start-line="316" selection-start-column="0" selection-end-line="316" selection-end-column="0" />
           <folding>
             <element signature="e#43595#44070#0" expanded="true" />
             <element signature="e#44069#44070#0" expanded="true" />

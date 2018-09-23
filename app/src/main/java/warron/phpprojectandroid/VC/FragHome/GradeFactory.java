@@ -150,7 +150,7 @@ public class GradeFactory {
                 Workbook workbook = null;
                 FileInputStream inputStream;
                 try {//需要修改params[0]
-                    File file=new File(fileUrl);//Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "成绩分析"+File.separator+"analysis.xls"
+                    File file=new File(params[0]);//Environment.getExternalStorageDirectory().getAbsolutePath()+File.separator + "成绩分析"+File.separator+"analysis.xls"
                     workbook = Workbook.getWorkbook(file);
                     workbook.getNumberOfSheets();
                     Sheet sheet = workbook.getSheet(0);

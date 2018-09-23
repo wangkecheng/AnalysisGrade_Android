@@ -1,10 +1,12 @@
 package warron.phpprojectandroid.VC;
 
+import android.Manifest;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -15,6 +17,8 @@ import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -91,13 +95,18 @@ public class MainActivity extends BaseActivity  implements View.OnClickListener{
 
         btnShare = this.findViewById(R.id.btn_home_ShareAll);
         btnShare.setOnClickListener(this);
-//        String sdStatus = Environment.getExternalStorageState();
-//        if (sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
-//            //创建本地文件夹 写入外置内存卡
-//            File directory = new File(Environment.getExternalStorageDirectory(), getResources().getString(R.string.app_name));
-//            if (!directory.exists())
-//                directory.mkdirs();//这里用这个好一些
-//        }
+        String sdStatus = Environment.getExternalStorageState();
+        if (sdStatus.equals(Environment.MEDIA_MOUNTED)) { // 检测sd是否可用
+            //创建本地文件夹 写入外置内存卡
+            File directory = new File(Environment.getExternalStorageDirectory(), getResources().getString(R.string.app_name));
+            if (!directory.exists())
+                directory.mkdirs();//这里用这个好一些
+        }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+            //申请写文件的WRITE_EXTERNAL_STORAGE权限
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    1);
+        }
         initProgesss();
     }
 

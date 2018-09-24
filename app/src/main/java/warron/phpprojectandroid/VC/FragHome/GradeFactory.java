@@ -1067,9 +1067,8 @@ public class GradeFactory {
                 }
             };
             Collections.sort(arrCollectModel, comparator2);
-
+            int index = arrCollectModel.size();
             for (ClassModel  classModel : arrCollectModel) {
-                int index = arrCollectModel.size();
                 String  proRankValue = prefixStr + "RankValue";
                 try {
                     setProperty(classModel,proRankValue,index);
